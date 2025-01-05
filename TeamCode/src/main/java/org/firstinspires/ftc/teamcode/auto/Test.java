@@ -14,20 +14,40 @@ import org.firstinspires.ftc.teamcode.tuning.TuningOpModes;
 public final class Test extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
-        Pose2d beginPose = new Pose2d(-54, 54.75, Math.toRadians(-90));
-            PinpointDrive drive = new PinpointDrive(hardwareMap, beginPose);
-            waitForStart();
-                Slide slide = new Slide(hardwareMap);
-                Actions.runBlocking(
-                        new ParallelAction(
-                                slide.spinUp(),
-                        drive.actionBuilder(beginPose)
-                                .splineToConstantHeading(new Vector2d(0, 27), -Math.PI / 2)
-                                .lineToY(40)
-                                .splineToLinearHeading(new Pose2d(-54, 54.75, Math.PI/2), Math.PI/2)
-                                .turn(Math.PI)
-                                .build()
-                        )
-                );
-        }
+        final double pi = Math.PI;
+        Pose2d beginPose = new Pose2d(9, -62, Math.toRadians(-90));
+        PinpointDrive drive = new PinpointDrive(hardwareMap, beginPose);
+        waitForStart();
+        Slide slide = new Slide(hardwareMap);
+        Actions.runBlocking(
+                drive.actionBuilder(beginPose)
+                        .lineToY(-34)
+                        .strafeTo(new Vector2d(34, -34))
+                        .strafeTo(new Vector2d(34,-8.75))
+                        .strafeTo(new Vector2d(45, -8.75))
+//                .splineToConstantHeading(new Vector2d(45, -8.75), pi/2)
+                        .strafeTo(new Vector2d(45, -54.5))
+                        .strafeTo(new Vector2d(45, -48))
+                        .splineToLinearHeading(new Pose2d(45, -8.75, pi/2), pi/2)
+                        .strafeTo(new Vector2d(54, -8.75))
+                        .strafeTo(new Vector2d(54, -54.5))
+                        .strafeTo(new Vector2d(54, -8.75))
+                        .strafeTo(new Vector2d(60, -8.75))
+                        .strafeTo(new Vector2d(60, -54.5))
+
+                        .strafeTo(new Vector2d(34, -40))
+                        .strafeTo(new Vector2d(34, -61.5))
+
+                        .lineToY(-55)
+                        .splineToLinearHeading(new Pose2d(9, -34, -pi/2), pi/2)
+                        .waitSeconds(0)
+                        .splineToSplineHeading(new Pose2d(34, -50, pi/2), pi/2)
+                        .lineToY(-61.7)
+                        .lineToY(-55)
+                        .splineToLinearHeading(new Pose2d(9, -34, -pi/2), pi/2)
+                        .waitSeconds(0)
+                        .splineToSplineHeading(new Pose2d(34, -50, pi/2), pi/2)
+                        .lineToY(-61.7)
+                        .build());
+    }
 }
