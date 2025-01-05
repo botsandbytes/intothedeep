@@ -35,10 +35,10 @@ public class QuarterVelocityTest extends LinearOpMode {
             leftBack.setPower(0.25);
             rightFront.setPower(0.25);
             rightBack.setPower(0.25);
-            telemetry.addData("fl", leftFront.getPower());
-            telemetry.addData("bl", leftBack.getPower());
-            telemetry.addData("fr", rightFront.getPower());
-            telemetry.addData("br", rightBack.getPower());
+            telemetry.addData("fl", leftFront.getVelocity());
+            telemetry.addData("bl", leftBack.getVelocity());
+            telemetry.addData("fr", rightFront.getVelocity());
+            telemetry.addData("br", rightBack.getVelocity());
             telemetry.update();
         }
     }

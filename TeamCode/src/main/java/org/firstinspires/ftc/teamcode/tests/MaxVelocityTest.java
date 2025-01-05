@@ -35,10 +35,10 @@ public class MaxVelocityTest extends LinearOpMode {
             leftBack.setPower(1);
             rightFront.setPower(1);
             rightBack.setPower(1);
-            telemetry.addData("fl", leftFront.getPower());
-            telemetry.addData("bl", leftBack.getPower());
-            telemetry.addData("fr", rightFront.getPower());
-            telemetry.addData("br", rightBack.getPower());
+            telemetry.addData("fl", leftFront.getVelocity());
+            telemetry.addData("bl", leftBack.getVelocity());
+            telemetry.addData("fr", rightFront.getVelocity());
+            telemetry.addData("br", rightBack.getVelocity());
             telemetry.update();
         }
     }
