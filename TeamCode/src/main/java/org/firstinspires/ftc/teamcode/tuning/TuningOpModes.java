@@ -13,6 +13,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpModeRegistrar;
 import org.firstinspires.ftc.robotcore.internal.opmode.OpModeMeta;
 import org.firstinspires.ftc.teamcode.*;
 import org.firstinspires.ftc.teamcode.auto.HangingAuto;
+import org.firstinspires.ftc.teamcode.auto.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -128,7 +129,7 @@ public final class TuningOpModes {
         manager.register(metaForClass(ManualFeedforwardTuner.class), new ManualFeedforwardTuner(dvf));
         manager.register(metaForClass(MecanumMotorDirectionDebugger.class), new MecanumMotorDirectionDebugger(dvf));
         manager.register(metaForClass(DeadWheelDirectionDebugger.class), new DeadWheelDirectionDebugger(dvf));
-
+        manager.register(metaForClass(dropSideAuto.class), dropSideAuto.class);
         manager.register(metaForClass(ManualFeedbackTuner.class), ManualFeedbackTuner.class);
         manager.register(metaForClass(HangingAuto.class), HangingAuto.class);
         manager.register(metaForClass(LocalizationTest.class), LocalizationTest.class);
