@@ -1,18 +1,15 @@
 package org.firstinspires.ftc.teamcode.auto;
 
-import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.TranslationalVelConstraint;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.PinpointDrive;
 import org.firstinspires.ftc.teamcode.robot.Slide;
-import org.firstinspires.ftc.teamcode.tuning.TuningOpModes;
 
-public final class Test extends LinearOpMode {
+public final class HangingAuto extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         final double pi = Math.PI;
