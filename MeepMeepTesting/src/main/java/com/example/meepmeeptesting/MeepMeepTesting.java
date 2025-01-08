@@ -18,10 +18,113 @@ public class MeepMeepTesting {
                 .setDimensions(17.75, 16)
                 .build();
 
-        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-32, -55, Math.toRadians(90)))
-                .splineToLinearHeading(new Pose2d(-50, -20, -pi/2), pi)
-                .splineToLinearHeading(new Pose2d(-32, -55, pi/2), pi)
-                .build());
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(6,-30,Math.toRadians(-90)))
+//                .splineToLinearHeading(new Pose2d(34, -24, pi/2), pi/2)
+//                .splineToLinearHeading(new Pose2d(42, -14, pi/2), pi/2)
+                        .splineToLinearHeading(new Pose2d(33.5, -63, pi/2), 180)
+
+
+
+//                .splineToLinearHeading(new Pose2d(-50, -20, -pi/2), pi)
+//                .splineToLinearHeading(new Pose2d(-32, -55, pi/2), pi)
+                        .build());
+//        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(9, -62, Math.toRadians(-90)))
+                // Drive to Submarine
+//                .lineToY(-34)
+//                // Drive to First Block
+//                .splineToConstantHeading(new Vector2d(9, -36), pi/2)
+//                .splineToConstantHeading(new Vector2d(34, -36), pi/2)
+//                .splineToConstantHeading(new Vector2d(40, -10), pi/2)
+//                .splineToConstantHeading(new Vector2d(40, -10), pi/2)
+//                .strafeTo(new Vector2d(34, -34))
+//                .strafeTo(new Vector2d(34,-8.75))
+//                .strafeTo(new Vector2d(45, -8.75))
+//                // Push Block 1
+//                .strafeTo(new Vector2d(45, -54.5))
+//                // Go back, Spline Turn, and go to block 2
+//                .strafeTo(new Vector2d(45, -48))
+//                .splineToLinearHeading(new Pose2d(45, -8.75, pi/2), pi/2)
+//                .strafeTo(new Vector2d(54, -8.75))
+//                // Push Block 2
+//                .strafeTo(new Vector2d(54, -54.5))
+//                // Go back, and go pick up Block 1
+//                .strafeTo(new Vector2d(34, -40))
+//                .strafeTo(new Vector2d(34, -61.5), new TranslationalVelConstraint(50))
+//
+//                .lineToY(-55)
+//                .splineToLinearHeading(new Pose2d(9, -34, -pi/2), pi/2)
+//                .waitSeconds(0)
+//                .splineToLinearHeading(new Pose2d(34, -50, pi/2), pi/2)
+//                .lineToY(-61.5, new TranslationalVelConstraint(30))
+//                .lineToY(-55)
+//                .splineToLinearHeading(new Pose2d(9, -34, -pi/2), pi/2)
+//                .waitSeconds(0)
+//                .splineToLinearHeading(new Pose2d(34, -50, pi/2), pi/2)
+//                .lineToY(-61.5, new TranslationalVelConstraint(30))
+
+
+//                // Swayam custom code
+//                .lineToY(-34)
+//                .strafeTo(new Vector2d(9, -36))
+//                // Drive to First Block
+//                .splineToLinearHeading(new Pose2d(34, -27, pi/2), pi/2)
+//                .strafeTo(new Vector2d(39, -12))
+//                // Push Block 1
+//                .splineToLinearHeading(new Pose2d(45, -52, pi/2), pi/2)
+//                // Go back, Spline Turn, and go to block 2
+//                .strafeTo(new Vector2d(45, -48))
+//                .splineToConstantHeading(new Vector2d(54, -12), 0)
+//                // Push Block 2
+//                .strafeTo(new Vector2d(54, -52))
+////                 Go back, and go pick up Block 1
+//                .strafeTo(new Vector2d(34, -52))
+//                .strafeTo(new Vector2d(34, -61.5), new TranslationalVelConstraint(50))
+//                .lineToY(-57)
+//                .splineToLinearHeading(new Pose2d(9, -34, -pi/2), pi/2)
+//                .waitSeconds(0)
+//                .splineToLinearHeading(new Pose2d(34, -50, pi/2), pi/2)
+//                .lineToY(-61.5, new TranslationalVelConstraint(30))
+//                .lineToY(-57)
+//                .splineToLinearHeading(new Pose2d(9, -34, -pi/2), pi/2)
+//                .waitSeconds(0)
+//                .splineToLinearHeading(new Pose2d(34, -50, pi/2), pi/2)
+//                .lineToY(-61.5, new TranslationalVelConstraint(30))
+//
+
+
+                // Rishabh Code
+
+//                .lineToY(-34)
+//                // Drive to First Block
+//                .strafeTo(new Vector2d(34, -34))
+//                .strafeTo(new Vector2d(34,-8.75))
+//                .strafeTo(new Vector2d(45, -8.75))
+////                .splineToConstantHeading(new Vector2d(45, -8.75), pi/2)
+//                // Push Block 1
+//                .strafeTo(new Vector2d(45, -54.5))
+//                // Go back, Spline Turn, and go to block 2
+//                .strafeTo(new Vector2d(45, -48))
+//                .splineToLinearHeading(new Pose2d(45, -8.75, pi/2), pi/2)
+//                .strafeTo(new Vector2d(54, -8.75))
+//                // Push Block 2
+//                .strafeTo(new Vector2d(54, -54.5))
+//                // Go back, and go pick up Block 1
+//                .strafeTo(new Vector2d(34, -40))
+//                .strafeTo(new Vector2d(34, -61.5), new TranslationalVelConstraint(50))
+//
+//                .lineToY(-55)
+//                .splineToLinearHeading(new Pose2d(9, -34, -pi/2), pi/2)
+//                .waitSeconds(0)
+//                .splineToLinearHeading(new Pose2d(34, -50, pi/2), pi/2)
+//                .lineToY(-61.5, new TranslationalVelConstraint(30))
+//                .lineToY(-55)
+//                .splineToLinearHeading(new Pose2d(9, -34, -pi/2), pi/2)
+//                .waitSeconds(0)
+//                .splineToLinearHeading(new Pose2d(34, -50, pi/2), pi/2)
+//                .lineToY(-61.5, new TranslationalVelConstraint(30))
+
+
+//                .build());
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_INTO_THE_DEEP_JUICE_DARK)
                 .setDarkMode(true)

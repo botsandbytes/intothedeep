@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.tests;
 
-import com.ThermalEquilibrium.homeostasis.Controllers.Feedback.BasicPID;
-import com.ThermalEquilibrium.homeostasis.Parameters.PIDCoefficients;
+//import com.ThermalEquilibrium.homeostasis.Controllers.Feedback.BasicPID;
+//import com.ThermalEquilibrium.homeostasis.Parameters.PIDCoefficients;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -18,7 +18,7 @@ public class skibiditoilet extends LinearOpMode {
     public static double Kd = 0.0;
     public static double power = 0.0;
     public static int targetPosition = 0;
-    BasicPID controller = new BasicPID(new PIDCoefficients(Kp,Ki,Kd));
+//    BasicPID controller = new BasicPID(new PIDCoefficients(Kp,Ki,Kd));
     @Override
     public void runOpMode() {
         // Initialize hardware

@@ -1,20 +1,14 @@
 package org.firstinspires.ftc.teamcode.auto;
 import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.SequentialAction;
-import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
-import org.firstinspires.ftc.teamcode.PinpointDrive;
-import org.firstinspires.ftc.teamcode.robot.Claw;
-import org.firstinspires.ftc.teamcode.robot.Lift;
-import org.firstinspires.ftc.teamcode.robot.Slide;
-import org.firstinspires.ftc.teamcode.robot.inExL;
+import org.firstinspires.ftc.teamcode.robot.OuttakeSlide;
+//import org.firstinspires.ftc.teamcode.robot.inExL;
 
 @Config
 @Autonomous(name = "dropSideAuto", group = "Autonomous")
@@ -24,12 +18,12 @@ public class dropSideAuto extends LinearOpMode {
         Pose2d beginPose = new Pose2d(-9, -62, Math.toRadians(-90));
             MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
             waitForStart();
-                Slide slide = new Slide(hardwareMap);
-                inExL inExL = new inExL(hardwareMap);
+                OuttakeSlide outtakeSlide = new OuttakeSlide(hardwareMap);
+//                inExL inExL = new inExL(hardwareMap);
                 Actions.runBlocking(
                         new ParallelAction(
-                          slide.spinUp(),
-                          inExL.extendOut(),
+                          outtakeSlide.spinUp(),
+//                          inExL.extendOut(),
                             drive.actionBuilder(beginPose)
                                     .lineToY(-34)
                                     .waitSeconds(1)

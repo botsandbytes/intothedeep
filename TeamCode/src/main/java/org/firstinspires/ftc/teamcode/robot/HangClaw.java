@@ -7,17 +7,22 @@ import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class Claw {
+public class HangClaw {
     private Servo claw;
 
-    public Claw(HardwareMap hardwareMap) {
+    public HangClaw(HardwareMap hardwareMap) {
         claw = hardwareMap.get(Servo.class, "hangClaw");
     }
 
+
+
+    // .58 open for hangClaw
+    // .75 close for hangClaw
     public class CloseClaw implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            claw.setPosition(0.55);
+            claw.setPosition(0.75);
+            packet.put("Closed Claw", "0.75");
             return false;
         }
     }
@@ -28,7 +33,8 @@ public class Claw {
     public class OpenClaw implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            claw.setPosition(1.0);
+            claw.setPosition(0.55);
+            packet.put("Open Claw", "0.55");
             return false;
         }
     }
