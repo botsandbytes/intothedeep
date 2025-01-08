@@ -7,21 +7,21 @@ import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class IntakeClaw {
-    private Servo claw, arm;
+public class intake {
+    private Servo arm, claw;
 
-    public IntakeClaw(HardwareMap hardwareMap) {
-        claw = hardwareMap.get(Servo.class, "outClaw");
-        arm = hardwareMap.get(Servo.class, "outArm");
+    public intake(HardwareMap hardwareMap) {
+        arm = hardwareMap.get(Servo.class, "intArm");
+        claw = hardwareMap.get(Servo.class, "intClaw");
     }
 
-    // .58 open for hangClaw
-    // .75 close for hangClaw
+
+
     public class CloseClaw implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            claw.setPosition(0.75);
-            packet.put("Out Claw Closed", "0.75");
+            claw.setPosition(0.7);
+            packet.put("Closed Claw", "0.7");
             return false;
         }
     }
@@ -32,8 +32,8 @@ public class IntakeClaw {
     public class OpenClaw implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            claw.setPosition(0.55);
-            packet.put("Out Claw Open", "0.55");
+            claw.setPosition(0.4);
+            packet.put("Open Claw", "0.4");
             return false;
         }
     }
@@ -41,28 +41,28 @@ public class IntakeClaw {
         return new OpenClaw();
     }
 
-    public class ArmPick implements Action {
+    public class lowerarm implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            arm.setPosition(1);
+            packet.put("Lowered arm", "1");
+            return false;
+        }
+    }
+    public Action lowerarm() {
+        return new lowerarm();
+    }
+
+    public class raisearm implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
             arm.setPosition(0);
-            packet.put("Out Arm Pick", "0");
+            packet.put("Raised arm", "0");
             return false;
         }
     }
-    public Action armPick() {
-        return new ArmPick();
-    }
-
-    public class ArmDrop implements Action {
-        @Override
-        public boolean run(@NonNull TelemetryPacket packet) {
-            arm.setPosition(0.55);
-            packet.put("Out Arm Drop", "0.55");
-            return false;
-        }
-    }
-    public Action armDrop() {
-        return new ArmDrop();
+    public Action raisearm() {
+        return new raisearm();
     }
 }
 

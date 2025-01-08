@@ -7,12 +7,12 @@ import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class IntakeSlide {
+public class intakeslide {
     private Servo left, right;
 
-    public IntakeSlide(HardwareMap hardwareMap) {
-        left = hardwareMap.get(Servo.class, "intL");
-        right = hardwareMap.get(Servo.class, "intR");
+    public intakeslide(HardwareMap hardwareMap) {
+        left = hardwareMap.get(Servo.class, "extL");
+        right = hardwareMap.get(Servo.class, "extR");
         right.setDirection(Servo.Direction.REVERSE);
     }
 
@@ -21,9 +21,9 @@ public class IntakeSlide {
     public class CloseSlide implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            left.setPosition(0);
-            right.setPosition(0);
-            packet.put("Int Slide Closed", "0");
+            left.setPosition(0.7);
+            right.setPosition(0.7);
+            packet.put("Int Slide Closed", "0.7");
             return false;
         }
     }
@@ -31,44 +31,44 @@ public class IntakeSlide {
         return new CloseSlide();
     }
 
-    public class FullyExpandSlide implements Action {
+    public class ExpandSlide implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            left.setPosition(0.55);
-            right.setPosition(0.55);
-            packet.put("Int Slide Expanded", "0.55");
+            left.setPosition(0.35);
+            right.setPosition(0.35);
+            packet.put("Int Slide Expanded", "0.35");
             return false;
         }
     }
-    public Action fullyExpandSlide() {
-        return new FullyExpandSlide();
+    public Action ExpandSlide() {
+        return new ExpandSlide();
     }
 
-    public class ExpandSlow implements Action {
-        @Override
-        public boolean run(@NonNull TelemetryPacket packet) {
-            left.setPosition(left.getPosition()+0.1);
-            right.setPosition(right.getPosition()+0.1);
-            packet.put("InArm Expand Slow", left.getPosition()+0.1);
-            return false;
-        }
-    }
-    public Action expandSlow() {
-        return new ExpandSlow();
-    }
-
-    public class CloseSlow implements Action {
-        @Override
-        public boolean run(@NonNull TelemetryPacket packet) {
-            left.setPosition(left.getPosition()-0.1);
-            right.setPosition(right.getPosition()-0.1);
-            packet.put("InArm Slow Close", left.getPosition()-0.1);
-            return false;
-        }
-    }
-    public Action closeSlow() {
-        return new CloseSlow();
-    }
+//    public class ExpandSlow implements Action {
+//        @Override
+//        public boolean run(@NonNull TelemetryPacket packet) {
+//            left.setPosition(left.getPosition()+0.1);
+//            right.setPosition(right.getPosition()+0.1);
+//            packet.put("InArm Expand Slow", left.getPosition()+0.1);
+//            return false;
+//        }
+//    }
+//    public Action expandSlow() {
+//        return new ExpandSlow();
+//    }
+//
+//    public class CloseSlow implements Action {
+//        @Override
+//        public boolean run(@NonNull TelemetryPacket packet) {
+//            left.setPosition(left.getPosition()-0.1);
+//            right.setPosition(right.getPosition()-0.1);
+//            packet.put("InArm Slow Close", left.getPosition()-0.1);
+//            return false;
+//        }
+//    }
+//    public Action closeSlow() {
+//        return new CloseSlow();
+//    }
 
     public class SetSlidePosition implements Action {
 
@@ -81,7 +81,7 @@ public class IntakeSlide {
         public boolean run(@NonNull TelemetryPacket packet) {
             left.setPosition(slidePosition);
             right.setPosition(slidePosition);
-            packet.put("InArm Slow Close", slidePosition);
+            packet.put("InSlide set to ", slidePosition);
             return false;
         }
     }

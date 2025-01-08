@@ -58,6 +58,24 @@ public class OuttakeSlide {
         }
     }
 
+    public class drop implements Action {
+//        private boolean initialized = false;
+
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+//            if (!initialized) {
+            motor.setTargetPosition(2120);
+            motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            motor.setPower(0.8);
+//                initialized = true;
+//            }
+
+            double vel = motor.getVelocity();
+            packet.put("Current Velocity in Hang", vel);
+            return motor.isBusy();
+        }
+    }
+
     public class SpinDown implements Action {
         private boolean initialized = true;
 
@@ -103,6 +121,10 @@ public class OuttakeSlide {
 
     public Action hang() {
         return new Hang();
+    }
+
+    public Action drop() {
+        return new drop();
     }
 }
 
