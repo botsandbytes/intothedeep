@@ -4,16 +4,19 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.ParallelAction;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class intakeslide {
+public class IntakeSlide {
     private Servo left, right;
+    private Intake inClaw;
 
-    public intakeslide(HardwareMap hardwareMap) {
+    public IntakeSlide(HardwareMap hardwareMap) {
         left = hardwareMap.get(Servo.class, "extL");
         right = hardwareMap.get(Servo.class, "extR");
         right.setDirection(Servo.Direction.REVERSE);
+        inClaw = new Intake(hardwareMap);
     }
 
     // .58 open for hangClaw
@@ -21,9 +24,10 @@ public class intakeslide {
     public class CloseSlide implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            left.setPosition(0.7);
-            right.setPosition(0.7);
-            packet.put("Int Slide Closed", "0.7");
+            left.setPosition(1);
+            right.setPosition(1);
+            packet.put("Int Slide Closed Left ", left.getPosition());
+            packet.put("Int Slide Closed Right ", right.getPosition());
             return false;
         }
     }
@@ -34,9 +38,10 @@ public class intakeslide {
     public class ExpandSlide implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            left.setPosition(0.35);
-            right.setPosition(0.35);
-            packet.put("Int Slide Expanded", "0.35");
+            left.setPosition(0);
+            right.setPosition(0);
+            packet.put("Int Slide Expanded Left ", left.getPosition());
+            packet.put("Int Slide Expanded Right ", right.getPosition());
             return false;
         }
     }
@@ -44,6 +49,20 @@ public class intakeslide {
         return new ExpandSlide();
     }
 
+    public Action readyToPickElement(){
+        return new ParallelAction(
+                ExpandSlide(),
+                inClaw.openClaw(),
+                inClaw.lowerarm()
+        );
+    }
+
+    public Action transferElement(){
+        return new ParallelAction(
+                closeSlide(),
+                inClaw.raisearm()
+        );
+    }
 //    public class ExpandSlow implements Action {
 //        @Override
 //        public boolean run(@NonNull TelemetryPacket packet) {
