@@ -21,8 +21,8 @@ public class HangClaw {
     public class CloseClaw implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            claw.setPosition(0.75);
-            packet.put("Closed Claw", "0.75");
+            claw.setPosition(0.6);
+            packet.put("Closed Claw", "0.6");
             return false;
         }
     }
@@ -33,8 +33,8 @@ public class HangClaw {
     public class OpenClaw implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            claw.setPosition(0.55);
-            packet.put("Open Claw", "0.55");
+            claw.setPosition(0.3);
+            packet.put("Open Claw", "0.3");
             return false;
         }
     }
