@@ -7,10 +7,10 @@ import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class intake {
+public class Intake {
     private Servo arm, claw;
 
-    public intake(HardwareMap hardwareMap) {
+    public Intake(HardwareMap hardwareMap) {
         arm = hardwareMap.get(Servo.class, "intArm");
         claw = hardwareMap.get(Servo.class, "intClaw");
     }
