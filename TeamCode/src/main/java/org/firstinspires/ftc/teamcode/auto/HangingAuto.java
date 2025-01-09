@@ -8,9 +8,9 @@ import com.acmerobotics.roadrunner.TranslationalVelConstraint;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
 import org.firstinspires.ftc.teamcode.roadrunner.PinpointDrive;
 import org.firstinspires.ftc.teamcode.robot.HangClaw;
+import org.firstinspires.ftc.teamcode.robot.IntakeSlide;
 import org.firstinspires.ftc.teamcode.robot.OuttakeSlide;
 
 public final class HangingAuto extends LinearOpMode {
@@ -19,12 +19,17 @@ public final class HangingAuto extends LinearOpMode {
         final double pi = Math.PI;
         Pose2d beginPose = new Pose2d(10, -62, Math.toRadians(-90));
         PinpointDrive drive = new PinpointDrive(hardwareMap, beginPose);
-        waitForStart();
         OuttakeSlide outtakeSlide = new OuttakeSlide(hardwareMap);
         HangClaw hangClaw = new HangClaw(hardwareMap);
+        IntakeSlide inSlide = new IntakeSlide(hardwareMap);
+
+        waitForStart();
+
         Actions.runBlocking(
                 new SequentialAction(
                         hangClaw.closeClaw(),
+                        inSlide.closeSlide(),
+//                        hangClaw.closeClaw(),
                         // go to submersible
                         new ParallelAction(
                                 drive.actionBuilder(beginPose)
@@ -47,7 +52,7 @@ public final class HangingAuto extends LinearOpMode {
                                         outtakeSlide.powerDown()),
                                 drive.actionBuilder(new Pose2d(10, -33, Math.toRadians(-90)))
                                  //Drive to First Block
-                                        .splineToLinearHeading(new Pose2d(31, -16, pi/2), pi/2)
+                                        .splineToLinearHeading(new Pose2d(31, -17, pi/2), pi/2)
                                 .strafeTo(new Vector2d(42, -12))
 //                                // Push Block 1
                                 .   strafeTo(new Vector2d(45, -51)) // 54.5
@@ -67,7 +72,7 @@ public final class HangingAuto extends LinearOpMode {
                         outtakeSlide.spinUp(),
                                 drive.actionBuilder(new Pose2d(33.5,-63,Math.toRadians(-90)))
                                         .strafeTo(new Vector2d(33.5,-60))
-                                        .splineToLinearHeading(new Pose2d(6, -30.5, -pi/2), pi/2)
+                                        .splineToLinearHeading(new Pose2d(6, -29.5, -pi/2), pi/2)
                                         .build(),
                         new SleepAction(0.1),
                         // hang block 1
@@ -76,17 +81,18 @@ public final class HangingAuto extends LinearOpMode {
                         // go back to pick up block 2
                         new ParallelAction(
                                 outtakeSlide.spinDown(),
-                                drive.actionBuilder(new Pose2d(7,-30.5,Math.toRadians(-90)))
-                                        .splineToLinearHeading(new Pose2d(33.5, -63, pi/2), 180)
+                                drive.actionBuilder(new Pose2d(7,-29.5,Math.toRadians(-90)))
+                                        .splineToLinearHeading(new Pose2d(30, -57, pi/2), 180)
+                                        .strafeTo(new Vector2d(32,-63), new TranslationalVelConstraint(50))
                                         .build()
                         ),
                         //pick up block 2
                         hangClaw.closeClaw(),
                         outtakeSlide.spinUp(),
                         // go to submersible to hang block 2
-                        drive.actionBuilder(new Pose2d(33.5,-63,Math.toRadians(-90)))
+                        drive.actionBuilder(new Pose2d(32,-63,Math.toRadians(-90)))
                                 .strafeTo(new Vector2d(33.5,-60))
-                                .splineToLinearHeading(new Pose2d(3, -30.5, -pi/2), pi/2)
+                                .splineToLinearHeading(new Pose2d(3, -29.5, -pi/2), pi/2)
                                 .build(),
                         new SleepAction(0.1),
                         // hang block 2
@@ -96,8 +102,8 @@ public final class HangingAuto extends LinearOpMode {
                         // go for parking
                         new ParallelAction(
                                 outtakeSlide.spinDown(),
-                                drive.actionBuilder(new Pose2d(3,-30.5,Math.toRadians(-90)))
-                                        .splineToLinearHeading(new Pose2d(33.5, -63, pi/2), 180)
+                                drive.actionBuilder(new Pose2d(3,-29.5,Math.toRadians(-90)))
+                                        .splineToLinearHeading(new Pose2d(33, -59, pi/2), 180)
                                         .build()
                         ),
                         outtakeSlide.powerDown()
