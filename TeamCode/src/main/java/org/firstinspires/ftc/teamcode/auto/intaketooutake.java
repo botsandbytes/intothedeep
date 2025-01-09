@@ -11,9 +11,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.roadrunner.PinpointDrive;
 import org.firstinspires.ftc.teamcode.robot.OuttakeSlide;
-import org.firstinspires.ftc.teamcode.robot.intake;
-import org.firstinspires.ftc.teamcode.robot.intakeslide;
-import org.firstinspires.ftc.teamcode.robot.outake;
+import org.firstinspires.ftc.teamcode.robot.Intake;
+import org.firstinspires.ftc.teamcode.robot.IntakeSlide;
+import org.firstinspires.ftc.teamcode.robot.Outake;
 
 @TeleOp
 public final class intaketooutake extends LinearOpMode {
@@ -25,9 +25,9 @@ public final class intaketooutake extends LinearOpMode {
         waitForStart();
         OuttakeSlide outtakeSlide = new OuttakeSlide(hardwareMap);
 //        HangClaw hangClaw = new HangClaw(hardwareMap);
-        intakeslide intakeslide = new intakeslide(hardwareMap);
-        intake intake = new intake(hardwareMap);
-        outake outake = new outake(hardwareMap);
+        IntakeSlide intakeslide = new IntakeSlide(hardwareMap);
+        Intake intake = new Intake(hardwareMap);
+        Outake outake = new Outake(hardwareMap);
         Actions.runBlocking(
                 new SequentialAction(
                         intakeslide.ExpandSlide(),
