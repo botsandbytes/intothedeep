@@ -25,6 +25,11 @@ public class servoTest extends LinearOpMode {
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
+
             Servo Servo = hardwareMap.get( Servo.class, servoName);
+            telemetry.addLine("Start position" +  Servo.getPosition());
+            telemetry.update();
             Servo.setPosition(position);
+            telemetry.addLine("current position" +  Servo.getPosition());
+            telemetry.update();
     }}}

@@ -1,6 +1,8 @@
 package com.example.meepmeeptesting;
 
+import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TranslationalVelConstraint;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.noahbres.meepmeep.MeepMeep;
@@ -14,54 +16,30 @@ public class MeepMeepTesting {
 
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setConstraints(100, 60, Math.toRadians(180), Math.toRadians(180), 15)
+                .setConstraints(100, 80, Math.toRadians(180), Math.toRadians(180), 15)
                 .setDimensions(17.75, 16)
                 .build();
 
-        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(6,-30,Math.toRadians(-90)))
-//                .splineToLinearHeading(new Pose2d(34, -24, pi/2), pi/2)
-//                .splineToLinearHeading(new Pose2d(42, -14, pi/2), pi/2)
-                        .splineToLinearHeading(new Pose2d(33.5, -63, pi/2), 180)
+        Pose2d beginPos = new Pose2d(-44, -40, Math.toRadians(90)); //new Pose2d(-10, -62, Math.toRadians(-90));
 
-
-
-//                .splineToLinearHeading(new Pose2d(-50, -20, -pi/2), pi)
-//                .splineToLinearHeading(new Pose2d(-32, -55, pi/2), pi)
-                        .build());
-//        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(9, -62, Math.toRadians(-90)))
-                // Drive to Submarine
-//                .lineToY(-34)
-//                // Drive to First Block
-//                .splineToConstantHeading(new Vector2d(9, -36), pi/2)
-//                .splineToConstantHeading(new Vector2d(34, -36), pi/2)
-//                .splineToConstantHeading(new Vector2d(40, -10), pi/2)
-//                .splineToConstantHeading(new Vector2d(40, -10), pi/2)
-//                .strafeTo(new Vector2d(34, -34))
-//                .strafeTo(new Vector2d(34,-8.75))
-//                .strafeTo(new Vector2d(45, -8.75))
-//                // Push Block 1
-//                .strafeTo(new Vector2d(45, -54.5))
-//                // Go back, Spline Turn, and go to block 2
-//                .strafeTo(new Vector2d(45, -48))
-//                .splineToLinearHeading(new Pose2d(45, -8.75, pi/2), pi/2)
-//                .strafeTo(new Vector2d(54, -8.75))
-//                // Push Block 2
-//                .strafeTo(new Vector2d(54, -54.5))
-//                // Go back, and go pick up Block 1
-//                .strafeTo(new Vector2d(34, -40))
-//                .strafeTo(new Vector2d(34, -61.5), new TranslationalVelConstraint(50))
-//
-//                .lineToY(-55)
-//                .splineToLinearHeading(new Pose2d(9, -34, -pi/2), pi/2)
-//                .waitSeconds(0)
-//                .splineToLinearHeading(new Pose2d(34, -50, pi/2), pi/2)
-//                .lineToY(-61.5, new TranslationalVelConstraint(30))
-//                .lineToY(-55)
-//                .splineToLinearHeading(new Pose2d(9, -34, -pi/2), pi/2)
-//                .waitSeconds(0)
-//                .splineToLinearHeading(new Pose2d(34, -50, pi/2), pi/2)
-//                .lineToY(-61.5, new TranslationalVelConstraint(30))
-
+        myBot.runAction(
+                new SequentialAction(
+                        myBot.getDrive().actionBuilder(beginPos)
+                                .splineToLinearHeading(new Pose2d(-56, -54, Math.toRadians(47)), Math.toRadians(47))
+//                                .lineToY(-31.5)
+//                            .splineToLinearHeading(new Pose2d(-48, -40, Math.toRadians(-90)), Math.toRadians(180))
+//                                .waitSeconds(2)
+//                                .splineToLinearHeading(new Pose2d(-56, -54, Math.toRadians(47)), Math.toRadians(47))
+//                                .waitSeconds(1)
+//                                .splineToLinearHeading(new Pose2d(-58, -38, Math.toRadians(90)), Math.toRadians(90))
+//                                .waitSeconds(2)
+//                                .strafeTo(new Vector2d(-56,-38))
+//                                .splineToLinearHeading(new Pose2d(-56, -54, Math.toRadians(47)), Math.toRadians(47))
+//                                .waitSeconds(1)
+//                                .splineToLinearHeading(new Pose2d(-30, -12, Math.toRadians(0)), Math.toRadians(0))
+                                .build()
+                )
+        );
 
 //                // Swayam custom code
 //                .lineToY(-34)

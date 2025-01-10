@@ -20,8 +20,8 @@ public class Intake {
     public class CloseClaw implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            claw.setPosition(0.7);
-            packet.put("Closed Claw", "0.7");
+            claw.setPosition(0.8);
+            packet.put("Closed Claw", claw.getPosition());
             return false;
         }
     }
@@ -32,8 +32,8 @@ public class Intake {
     public class OpenClaw implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            claw.setPosition(0.4);
-            packet.put("Open Claw", "0.4");
+            claw.setPosition(0.5);
+            packet.put("Open Claw", claw.getPosition());
             return false;
         }
     }
@@ -45,7 +45,7 @@ public class Intake {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
             arm.setPosition(1);
-            packet.put("Lowered arm", "1");
+            packet.put("Lowered arm", arm.getPosition());
             return false;
         }
     }
@@ -57,8 +57,8 @@ public class Intake {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
             arm.setPosition(0);
-            packet.put("Raised arm", "0");
-            return false;
+            packet.put("Raised arm", arm.getPosition());
+            return arm.getPosition()!=0;
         }
     }
     public Action raisearm() {

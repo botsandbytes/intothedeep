@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 @TeleOp
 public class axontest extends LinearOpMode {
     public static double position = 0;
-    public static String servoName = "intClaw";
-    public static String servoName2 = "intClaw";
+    public static String servoName = "extL";
+    public static String servoName2 = "extR";
 
     // .58 open for hangClaw
     // .75 close for hangClaw
