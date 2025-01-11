@@ -45,27 +45,19 @@ public final class dropSideAuto extends LinearOpMode {
                         //hang
                         outtakeSlide.hang(),
                         hangClaw.openClaw(),
-                        drive.actionBuilder(new Pose2d(-10, -31.5, Math.toRadians(-90)))
-                                .splineToLinearHeading(new Pose2d(-44, -40, Math.toRadians(90)), Math.toRadians(90))
-//                                .waitSeconds(2)
-////                                .splineToLinearHeading(new Pose2d(-56, -54, Math.toRadians(47)), Math.toRadians(47))
-////                                .waitSeconds(1)
-////                                .splineToLinearHeading(new Pose2d(-58, -38, Math.toRadians(90)), Math.toRadians(90))
-////                                .waitSeconds(2)
-////                                .strafeTo(new Vector2d(-56,-38))
-////                                .splineToLinearHeading(new Pose2d(-56, -54, Math.toRadians(47)), Math.toRadians(47))
-////                                .waitSeconds(1)
-////                                .splineToLinearHeading(new Pose2d(-30, -12, Math.toRadians(0)), Math.toRadians(0))
+                        // drive to first pixel while closing the slide
+                        new ParallelAction(
+                            drive.actionBuilder(new Pose2d(-10, -31.5, Math.toRadians(-90)))
+                                .splineToLinearHeading(new Pose2d(-48, -49, Math.toRadians(90)), Math.toRadians(90))
                                 .build(),
-//                        new ParallelAction(
-//                                inSlide.closeSlide(),
-//                                intake.openClaw(),
-//                                intake.lowerarm()
-//                        ),
+                                outtakeSlide.spinDown()
+                        ),
+                        //pick up the element
                         inSlide.readyToPickElement(),
                         new SleepAction(1.3),
                         intake.closeClaw(),
                         new SleepAction(.8),
+                        // trasnfer the element to outtake
                         new ParallelAction(
                                 inSlide.transferElement(),
                                 outtakeClaw.openClaw(),
@@ -76,18 +68,67 @@ public final class dropSideAuto extends LinearOpMode {
                         new SleepAction(1),
                         intake.openClaw(),
                         new SleepAction(.2),
+                        // drive to drop pole while extending slide and getting arm ready
                         new ParallelAction(
                                 outtakeClaw.armDrop(),
                                 outtakeSlide.drop(),
-                                drive.actionBuilder(new Pose2d(-44, -40, Math.toRadians(90)))
-                                .splineToLinearHeading(new Pose2d(-56, -54, Math.toRadians(47)), Math.toRadians(47))
+                                drive.actionBuilder(new Pose2d(-48, -49, Math.toRadians(90)))
+                                .splineToLinearHeading(new Pose2d(-53, -51, Math.toRadians(47)), Math.toRadians(47))
                                         .build()
                         ),
-//                        new SleepAction(2),
-//                        outtakeClaw.closeClaw(),
-//                        intake.openClaw(),
+                        new SleepAction(1),
+                        // drop the block
+                        drive.actionBuilder(new Pose2d(-53, -51,Math.toRadians(47)))
+                                .strafeTo(new Vector2d(-57,-55), new TranslationalVelConstraint(50))
+                                .build(),
+                        outtakeClaw.openClaw(),
+                        new SleepAction(.3),
+                        // drive to block 2
+                        new ParallelAction(
+                                outtakeClaw.armPick(),
+                                outtakeSlide.spinDown(),
+                                drive.actionBuilder(new Pose2d(-57, -55, Math.toRadians(47)))
+                                        .splineToLinearHeading(new Pose2d(-58, -48, Math.toRadians(90)), Math.toRadians(90))
+                                        .build(),
+                                inSlide.readyToPickElement()
+                        ),
+                        //pick up the block 2
+//                        new SleepAction(1.3),
+                        intake.closeClaw(),
+                        new SleepAction(.8),
+                        // trasnfer the block 2 to outtake
+                        new ParallelAction(
+                                inSlide.transferElement(),
+                                outtakeClaw.openClaw(),
+                                outtakeClaw.armPick()
+                        ),
+                        inSlide.closeSlide(),
                         new SleepAction(2),
-                        outtakeClaw.openClaw()
+                        outtakeClaw.closeClaw(),
+                        new SleepAction(1),
+                        intake.openClaw(),
+                        new SleepAction(.2),
+                        // drive to drop pole while extending slide and getting arm ready for block 2
+                        new ParallelAction(
+                                outtakeClaw.armDrop(),
+                                outtakeSlide.drop(),
+                                drive.actionBuilder(new Pose2d(-58, -48, Math.toRadians(90)))
+                                        .splineToLinearHeading(new Pose2d(-53, -51, Math.toRadians(47)), Math.toRadians(47))
+                                        .build()
+                        ),
+                        new SleepAction(1),
+                        // drop the block
+                        drive.actionBuilder(new Pose2d(-53, -51,Math.toRadians(47)))
+                                .strafeTo(new Vector2d(-57,-55), new TranslationalVelConstraint(50))
+                                .build(),
+                        outtakeClaw.openClaw(),
+                        new SleepAction(.8),
+                        drive.actionBuilder(new Pose2d(-57, -55,Math.toRadians(47)))
+                        .splineToLinearHeading(new Pose2d(-24, -12, Math.toRadians(-180)), Math.toRadians(0))
+                                .build(),
+                        outtakeSlide.hang(),
+                        outtakeClaw.armPark()
+//                        new SleepAction(5)
                 )
         );
     }
