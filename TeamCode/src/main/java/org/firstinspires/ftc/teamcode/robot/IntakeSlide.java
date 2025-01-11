@@ -15,7 +15,7 @@ public class IntakeSlide {
     public IntakeSlide(HardwareMap hardwareMap) {
         left = hardwareMap.get(Servo.class, "extL");
         right = hardwareMap.get(Servo.class, "extR");
-//        right.setDirection(Servo.Direction.REVERSE);
+        right.setDirection(Servo.Direction.REVERSE);
         inClaw = new Intake(hardwareMap);
     }
 
@@ -25,10 +25,10 @@ public class IntakeSlide {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
             left.setPosition(1);
-            right.setPosition(0);
+            right.setPosition(1);
             packet.put("Int Slide Closed Left ", left.getPosition());
             packet.put("Int Slide Closed Right ", right.getPosition());
-            return right.getPosition()!=0;
+            return right.getPosition()!=1;
         }
     }
     public Action closeSlide() {
@@ -40,11 +40,11 @@ public class IntakeSlide {
         public boolean run(@NonNull TelemetryPacket packet) {
             packet.put("Int Slide start position Left ", left.getPosition());
             packet.put("Int Slide start position Right ", right.getPosition());
-            left.setPosition(0);
-            right.setPosition(1);
+            left.setPosition(0.3);
+            right.setPosition(0.3);
             packet.put("Int Slide Expanded Left ", left.getPosition());
             packet.put("Int Slide Expanded Right ", right.getPosition());
-            return right.getPosition()!=1;
+            return right.getPosition()!=0.3;
         }
     }
     public Action ExpandSlide() {

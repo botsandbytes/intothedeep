@@ -22,7 +22,7 @@ public class HangClaw {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
             claw.setPosition(0.6);
-            packet.put("Closed Claw", "0.6");
+            packet.put("Closed Claw", "0.6  ");
             return false;
         }
     }
