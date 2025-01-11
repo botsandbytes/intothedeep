@@ -40,11 +40,11 @@ public class IntakeSlide {
         public boolean run(@NonNull TelemetryPacket packet) {
             packet.put("Int Slide start position Left ", left.getPosition());
             packet.put("Int Slide start position Right ", right.getPosition());
-            left.setPosition(0.3);
-            right.setPosition(0.3);
+            left.setPosition(0.34);
+            right.setPosition(0.34);
             packet.put("Int Slide Expanded Left ", left.getPosition());
             packet.put("Int Slide Expanded Right ", right.getPosition());
-            return right.getPosition()!=0.3;
+            return false;
         }
     }
     public Action ExpandSlide() {
@@ -65,31 +65,31 @@ public class IntakeSlide {
                 inClaw.raisearm()
         );
     }
-//    public class ExpandSlow implements Action {
-//        @Override
-//        public boolean run(@NonNull TelemetryPacket packet) {
-//            left.setPosition(left.getPosition()+0.1);
-//            right.setPosition(right.getPosition()+0.1);
-//            packet.put("InArm Expand Slow", left.getPosition()+0.1);
-//            return false;
-//        }
-//    }
-//    public Action expandSlow() {
-//        return new ExpandSlow();
-//    }
-//
-//    public class CloseSlow implements Action {
-//        @Override
-//        public boolean run(@NonNull TelemetryPacket packet) {
-//            left.setPosition(left.getPosition()-0.1);
-//            right.setPosition(right.getPosition()-0.1);
-//            packet.put("InArm Slow Close", left.getPosition()-0.1);
-//            return false;
-//        }
-//    }
-//    public Action closeSlow() {
-//        return new CloseSlow();
-//    }
+    public class ExpandSlow implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            left.setPosition(left.getPosition()-0.05);
+            right.setPosition(right.getPosition()-0.05);
+            packet.put("InArm Expand Slow", left.getPosition()-0.05);
+            return false;
+        }
+    }
+    public Action expandSlow() {
+        return new ExpandSlow();
+    }
+
+    public class CloseSlow implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            left.setPosition(left.getPosition()+0.05);
+            right.setPosition(right.getPosition()+0.05);
+            packet.put("InArm Slow Close", left.getPosition()+0.05);
+            return false;
+        }
+    }
+    public Action closeSlow() {
+        return new CloseSlow();
+    }
 
     public class SetSlidePosition implements Action {
 

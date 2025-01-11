@@ -41,7 +41,7 @@ public class Intake {
         return new OpenClaw();
     }
 
-    public class lowerarm implements Action {
+    public class LowerArm implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
             arm.setPosition(1);
@@ -50,10 +50,10 @@ public class Intake {
         }
     }
     public Action lowerarm() {
-        return new lowerarm();
+        return new LowerArm();
     }
 
-    public class raisearm implements Action {
+    public class RaiseArm implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
             arm.setPosition(0);
@@ -62,7 +62,19 @@ public class Intake {
         }
     }
     public Action raisearm() {
-        return new raisearm();
+        return new RaiseArm();
+    }
+
+    public class ArmMid implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            arm.setPosition(0.2);
+            packet.put("Mid arm", arm.getPosition());
+            return arm.getPosition()!=0.2;
+        }
+    }
+    public Action armMid() {
+        return new ArmMid();
     }
 }
 

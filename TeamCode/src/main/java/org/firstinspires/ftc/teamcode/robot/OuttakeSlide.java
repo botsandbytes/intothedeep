@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.SequentialAction;
+import com.acmerobotics.roadrunner.SleepAction;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -13,6 +15,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class OuttakeSlide {
     private final DcMotorEx motor;
+    private HangClaw hangClaw;
 
     public OuttakeSlide(HardwareMap hardwareMap) {
 
@@ -20,6 +23,7 @@ public class OuttakeSlide {
         motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motor.setDirection(DcMotorSimple.Direction.FORWARD);
+        hangClaw = new HangClaw(hardwareMap);
     }
 
     public class SpinUp implements Action {
@@ -28,7 +32,7 @@ public class OuttakeSlide {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
             if (!initialized) {
-                motor.setTargetPosition(1400);
+                motor.setTargetPosition(1450);
                 motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 motor.setPower(0.8);
                 initialized = true;
@@ -139,6 +143,17 @@ public class OuttakeSlide {
 
     public Action drop() {
         return new drop();
+    }
+
+    public Action hangOnBar(){
+        return new SequentialAction(
+                hang(),
+                new SleepAction(2),
+                hangClaw.openClaw(),
+                new SleepAction(1),
+                spinDown(),
+                powerDown()
+        );
     }
 }
 

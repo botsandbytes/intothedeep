@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 @TeleOp
 public class axontest extends LinearOpMode {
     public static double position = 0;
-    public static String servoName = "extL";
-    public static String servoName2 = "extR";
+    public static String leftServoName = "extL";
+    public static String rightServoName = "extR";
 
     // .58 open for hangClaw
     // .75 close for hangClaw
@@ -20,14 +20,16 @@ public class axontest extends LinearOpMode {
     public void runOpMode() {
         FtcDashboard dashboard = FtcDashboard.getInstance();
         telemetry = dashboard.getTelemetry();
-        Servo Servo = hardwareMap.get( Servo.class, servoName);
-        Servo Servo2 = hardwareMap.get( Servo.class, servoName2);
+        Servo leftServo = hardwareMap.get( Servo.class, leftServoName);
+        Servo rightServo = hardwareMap.get( Servo.class, rightServoName);
+
+        rightServo.setDirection(Servo.Direction.REVERSE);
 
         waitForStart();
 
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
-            Servo.setPosition(position);
-            Servo2.setPosition(1-position);
+            leftServo.setPosition(position);
+            rightServo.setPosition(position);
         }}}
