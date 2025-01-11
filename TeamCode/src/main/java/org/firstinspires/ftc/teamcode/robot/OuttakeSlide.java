@@ -97,6 +97,20 @@ public class OuttakeSlide {
         }
     }
 
+    public class Park implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+
+            motor.setTargetPosition(900);
+            motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            motor.setPower(0.8);
+
+            double power = motor.getPower();
+            packet.put("Curent Power in Park", power);
+            return  motor.isBusy();
+        }
+    }
+
     public class PowerDown implements Action {
 
         @Override
