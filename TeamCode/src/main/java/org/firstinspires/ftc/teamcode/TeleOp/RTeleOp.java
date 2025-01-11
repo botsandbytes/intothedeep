@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp
-public class TeleOp extends OpMode {
+public class RTeleOp extends OpMode {
 
     private FtcDashboard dash = FtcDashboard.getInstance();
     private List<Action> runningActions = new ArrayList<>();
@@ -35,8 +35,6 @@ public class TeleOp extends OpMode {
     int outslide = 0;
     @Override
     public void init() {
-        telemetry.addData("Status", "Initialized");
-        telemetry.update();
     }
     @Override
     public void loop() {
