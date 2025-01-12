@@ -38,7 +38,7 @@ public final class dropSideAuto extends LinearOpMode {
                         // go to submersible
                         new ParallelAction(
                                 drive.actionBuilder(beginPose)
-                                        .lineToY(-31.5)
+                                        .lineToY(-30.5)
                                         .build(),
                                 outtakeSlide.spinUp()
                         ),
@@ -47,8 +47,8 @@ public final class dropSideAuto extends LinearOpMode {
                         hangClaw.openClaw(),
                         // drive to first pixel while closing the slide
                         new ParallelAction(
-                            drive.actionBuilder(new Pose2d(-10, -31.5, Math.toRadians(-90)))
-                                .splineToLinearHeading(new Pose2d(-48, -49, Math.toRadians(90)), Math.toRadians(90))
+                            drive.actionBuilder(new Pose2d(-10, -30.5, Math.toRadians(-90)))
+                                .splineToLinearHeading(new Pose2d(-48, -48, Math.toRadians(90)), Math.toRadians(90))
                                 .build(),
                                 outtakeSlide.spinDown()
                         ),
@@ -72,7 +72,7 @@ public final class dropSideAuto extends LinearOpMode {
                         new ParallelAction(
                                 outtakeClaw.armDrop(),
                                 outtakeSlide.drop(),
-                                drive.actionBuilder(new Pose2d(-48, -49, Math.toRadians(90)))
+                                drive.actionBuilder(new Pose2d(-48, -48, Math.toRadians(90)))
                                 .splineToLinearHeading(new Pose2d(-53, -51, Math.toRadians(47)), Math.toRadians(47))
                                         .build()
                         ),
@@ -88,7 +88,7 @@ public final class dropSideAuto extends LinearOpMode {
                                 outtakeClaw.armPick(),
                                 outtakeSlide.spinDown(),
                                 drive.actionBuilder(new Pose2d(-57, -55, Math.toRadians(47)))
-                                        .splineToLinearHeading(new Pose2d(-58, -48, Math.toRadians(90)), Math.toRadians(90))
+                                        .splineToLinearHeading(new Pose2d(-58, -47, Math.toRadians(90)), Math.toRadians(90))
                                         .build(),
                                 inSlide.readyToPickElement()
                         ),
@@ -112,7 +112,7 @@ public final class dropSideAuto extends LinearOpMode {
                         new ParallelAction(
                                 outtakeClaw.armDrop(),
                                 outtakeSlide.drop(),
-                                drive.actionBuilder(new Pose2d(-58, -48, Math.toRadians(90)))
+                                drive.actionBuilder(new Pose2d(-58, -47, Math.toRadians(90)))
                                         .splineToLinearHeading(new Pose2d(-53, -51, Math.toRadians(47)), Math.toRadians(47))
                                         .build()
                         ),
@@ -126,9 +126,9 @@ public final class dropSideAuto extends LinearOpMode {
                         drive.actionBuilder(new Pose2d(-57, -55,Math.toRadians(47)))
                         .splineToLinearHeading(new Pose2d(-24, -12, Math.toRadians(-180)), Math.toRadians(0))
                                 .build(),
-                        outtakeSlide.hang(),
-                        outtakeClaw.armPark()
-//                        new SleepAction(5)
+                        outtakeClaw.armPick(),
+                        outtakeSlide.spinDown(),
+                        new SleepAction(1)
                 )
         );
     }

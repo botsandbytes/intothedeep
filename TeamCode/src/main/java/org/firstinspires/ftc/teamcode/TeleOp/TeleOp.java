@@ -41,6 +41,8 @@ public final class TeleOp extends LinearOpMode {
     }
 
     public class TeleopControl implements Action {
+
+        int hangCount = 0;
         final double pi = Math.PI;
         OuttakeSlide outSlide = new OuttakeSlide(hardwareMap);
         OuttakeClaw outtake = new OuttakeClaw(hardwareMap);
@@ -70,13 +72,20 @@ public final class TeleOp extends LinearOpMode {
             if (gamepad1.y) {
                 intake.armMid().run(packet);
             }
-//
-//            if (gamepad1.right_bumper) {
-//                intake.raisearm().run(packet);
-//            }
+
+            if (gamepad1.right_bumper) {
+                Actions.runBlocking(
+                        new SequentialAction(
+                                intake.closeClaw(),
+                                new SleepAction(0.5),
+                                intake.armMid()
+                        )
+                );
+            }
 
             //pick up the element and drive and hang element
             if (gamepad1.right_bumper) {
+                hangCount++;
                 Actions.runBlocking(
                         new SequentialAction(
                                 drive.actionBuilder(new Pose2d(33, -59, Math.toRadians(90)))
@@ -89,9 +98,9 @@ public final class TeleOp extends LinearOpMode {
                             // go to submersible to hang block
                             drive.actionBuilder(new Pose2d(32, -62.5, Math.toRadians(-90)))
                                 .strafeTo(new Vector2d(34, -60))
-                                .splineToLinearHeading(new Pose2d(4, -27, -pi / 2), pi / 2)
+                                .splineToLinearHeading(new Pose2d(4-hangCount, -26, -pi / 2), pi / 2)
                                 .build(),
-                            new SleepAction(0.1),
+                            new SleepAction(0.2),
                             // hang block 2
                             outSlide.hang()
 //                            hangClaw.openClaw()
@@ -114,6 +123,18 @@ public final class TeleOp extends LinearOpMode {
                         )
                 );
             }
+
+            // parking
+
+            if (gamepad1.right_trigger > 0) {
+                Actions.runBlocking(
+                        new SequentialAction(
+                                outtake.armPark(),
+                                outSlide.park()
+                        )
+                );
+            }
+
 
             // GAMEPAD 2 Controls
 
@@ -149,6 +170,7 @@ public final class TeleOp extends LinearOpMode {
                 );
             }
 
+
             //Drop controls
 
             //transfer the specimen
@@ -161,8 +183,10 @@ public final class TeleOp extends LinearOpMode {
                                 intake.raisearm(),
                                 inSlide.closeSlide()
                             ),
+                        new SleepAction(1),
                         outtake.closeClaw(),
                         intake.openClaw(),
+                            new SleepAction(0.2),
                         outtake.armDrop(),
                         outSlide.drop()
                     )
@@ -174,6 +198,7 @@ public final class TeleOp extends LinearOpMode {
                 Actions.runBlocking(
                     new SequentialAction(
                         outtake.openClaw(),
+                            new SleepAction(0.2),
                         outtake.armPick(),
                         outSlide.spinDown(),
                         outSlide.powerDown()

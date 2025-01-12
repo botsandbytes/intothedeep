@@ -68,9 +68,9 @@ public class Intake {
     public class ArmMid implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            arm.setPosition(0.2);
+            arm.setPosition(0.7);
             packet.put("Mid arm", arm.getPosition());
-            return arm.getPosition()!=0.2;
+            return arm.getPosition()!=0.7;
         }
     }
     public Action armMid() {

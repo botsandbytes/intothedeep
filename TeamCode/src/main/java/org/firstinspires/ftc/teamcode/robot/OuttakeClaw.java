@@ -44,9 +44,9 @@ public class OuttakeClaw {
     public class ArmPick implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            arm.setPosition(.97);
+            arm.setPosition(.98);
             packet.put("Out Arm Pick", arm.getPosition());
-            return arm.getPosition()!=.97;
+            return arm.getPosition()!=.98;
         }
     }
     public Action armPick() {

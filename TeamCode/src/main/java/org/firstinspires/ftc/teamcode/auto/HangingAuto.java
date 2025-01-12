@@ -87,11 +87,13 @@ public final class HangingAuto extends LinearOpMode {
                         new ParallelAction(
                                 outtakeSlide.spinDown(),
                                 drive.actionBuilder(new Pose2d(7,-29,Math.toRadians(-90)))
-                                        .splineToLinearHeading(new Pose2d(33, -61, pi/2), 180)
-//                                        .splineToLinearHeading(new Pose2d(32, -62, pi/2), 180, new TranslationalVelConstraint(50))
-                                        .waitSeconds(.5)
-//                                        .strafeTo(new Vector2d(32,-62), new TranslationalVelConstraint(50))
-//                                        .lineToY(-62)
+//                                        .splineToLinearHeading(new Pose2d(33, -61, pi/2), 180)
+//                                        .waitSeconds(.5)
+//                                        .build()
+
+                                        // temp new code
+                                        .splineToLinearHeading(new Pose2d(30, -57, pi/2), 180)
+                                        .strafeTo(new Vector2d(33,-62.5), new TranslationalVelConstraint(50))
                                         .build()
                         ),
 //                        new SleepAction(0.5),

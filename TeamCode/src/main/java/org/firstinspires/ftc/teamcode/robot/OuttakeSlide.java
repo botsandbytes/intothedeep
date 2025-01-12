@@ -105,7 +105,7 @@ public class OuttakeSlide {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
 
-            motor.setTargetPosition(900);
+            motor.setTargetPosition(500);
             motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             motor.setPower(0.8);
 
@@ -139,6 +139,11 @@ public class OuttakeSlide {
 
     public Action hang() {
         return new Hang();
+    }
+
+
+    public Action park() {
+        return new Park();
     }
 
     public Action drop() {
