@@ -73,7 +73,7 @@ public final class TeleOp extends LinearOpMode {
                 intake.armMid().run(packet);
             }
 
-            if (gamepad1.right_bumper) {
+            if (gamepad1.left_trigger > 0) {
                 Actions.runBlocking(
                         new SequentialAction(
                                 intake.closeClaw(),
@@ -82,6 +82,18 @@ public final class TeleOp extends LinearOpMode {
                         )
                 );
             }
+
+            // parking
+
+            if (gamepad1.right_trigger > 0) {
+                Actions.runBlocking(
+                        new SequentialAction(
+                                outtake.armPark(),
+                                outSlide.park()
+                        )
+                );
+            }
+
 
             //pick up the element and drive and hang element
             if (gamepad1.right_bumper) {
@@ -98,7 +110,7 @@ public final class TeleOp extends LinearOpMode {
                             // go to submersible to hang block
                             drive.actionBuilder(new Pose2d(32, -62.5, Math.toRadians(-90)))
                                 .strafeTo(new Vector2d(34, -60))
-                                .splineToLinearHeading(new Pose2d(4-hangCount, -26, -pi / 2), pi / 2)
+                                .splineToLinearHeading(new Pose2d(4-(1.5*hangCount), -25, -pi / 2), pi / 2)
                                 .build(),
                             new SleepAction(0.2),
                             // hang block 2
@@ -124,16 +136,6 @@ public final class TeleOp extends LinearOpMode {
                 );
             }
 
-            // parking
-
-            if (gamepad1.right_trigger > 0) {
-                Actions.runBlocking(
-                        new SequentialAction(
-                                outtake.armPark(),
-                                outSlide.park()
-                        )
-                );
-            }
 
 
             // GAMEPAD 2 Controls

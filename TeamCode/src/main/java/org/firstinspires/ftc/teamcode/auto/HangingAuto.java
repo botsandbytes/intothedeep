@@ -60,13 +60,13 @@ public final class HangingAuto extends LinearOpMode {
 //                                // Push Block 1
                                 .   strafeTo(new Vector2d(45, -51)) // 54.5
 //                                // Go back, Spline Turn, and go to block 2
-                                    .strafeTo(new Vector2d(45, -12))
-                                    .strafeTo(new Vector2d(55, -12))
+                                    .strafeTo(new Vector2d(40, -12))
+                                    .strafeTo(new Vector2d(52, -12))
 //                                // Push Block 2
                                     .strafeTo(new Vector2d(50, -51)) // 54.5
 //                                // Go back, and go pick up Block 1
                                     .strafeTo(new Vector2d(34, -48))
-                                    .strafeTo(new Vector2d(33.5, -62), new TranslationalVelConstraint(40))
+                                    .strafeTo(new Vector2d(36, -62.5), new TranslationalVelConstraint(30))
                                 .build()
                         ),
                         hangClaw.closeClaw(),
@@ -74,8 +74,8 @@ public final class HangingAuto extends LinearOpMode {
 //                        new SleepAction(1),
                         // go to submersible to hang specimen 2
                         outtakeSlide.spinUp(),
-                                drive.actionBuilder(new Pose2d(33.5,-62,Math.toRadians(-90)))
-                                        .strafeTo(new Vector2d(33.5,-58))
+                                drive.actionBuilder(new Pose2d(36,-62.5,Math.toRadians(-90)))
+                                        .strafeTo(new Vector2d(36,-58))
                                         .splineToLinearHeading(new Pose2d(7, -29, -pi/2), pi/2)
 //                                        .strafeTo(new Vector2d(6, -29), new TranslationalVelConstraint(40))
                                         .build(),
@@ -92,8 +92,8 @@ public final class HangingAuto extends LinearOpMode {
 //                                        .build()
 
                                         // temp new code
-                                        .splineToLinearHeading(new Pose2d(30, -57, pi/2), 180)
-                                        .strafeTo(new Vector2d(33,-62.5), new TranslationalVelConstraint(50))
+                                        .splineToLinearHeading(new Pose2d(33, -57, pi/2), 180)
+                                        .strafeTo(new Vector2d(36,-62), new TranslationalVelConstraint(30))
                                         .build()
                         ),
 //                        new SleepAction(0.5),
@@ -101,8 +101,8 @@ public final class HangingAuto extends LinearOpMode {
                         hangClaw.closeClaw(),
                         outtakeSlide.spinUp(),
                         // go to submersible to hang specimen 3
-                        drive.actionBuilder(new Pose2d(33,-61,Math.toRadians(-90)))
-                                .strafeTo(new Vector2d(31,-58))
+                        drive.actionBuilder(new Pose2d(36,-62,Math.toRadians(-90)))
+                                .strafeTo(new Vector2d(34,-58))
                                 .splineToLinearHeading(new Pose2d(2, -28, -pi/2), pi/2)
                                 .build(),
                         new SleepAction(0.3),
@@ -114,7 +114,7 @@ public final class HangingAuto extends LinearOpMode {
                         new ParallelAction(
                                 outtakeSlide.spinDown(),
                                 drive.actionBuilder(new Pose2d(2,-28,Math.toRadians(-90)))
-                                        .splineToLinearHeading(new Pose2d(33, -59, pi/2), 180)
+                                        .splineToLinearHeading(new Pose2d(36, -59, pi/2), 180)
                                         .build()
                         ),
                         outtakeSlide.powerDown()
