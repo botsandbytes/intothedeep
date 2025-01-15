@@ -23,7 +23,7 @@ public class HangClaw {
         public boolean run(@NonNull TelemetryPacket packet) {
             claw.setPosition(0.4);
             packet.put("Closed Claw", "0.4");
-            return false;
+            return claw.getPosition() != 0.4;
         }
     }
     public Action closeClaw() {

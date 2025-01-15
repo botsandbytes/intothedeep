@@ -19,7 +19,7 @@ public final class HangingAuto extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         final double pi = Math.PI;
-        Pose2d beginPose = new Pose2d(10, -62, Math.toRadians(-90));
+        Pose2d beginPose = new Pose2d(11, -62, Math.toRadians(-90));
         PinpointDrive drive = new PinpointDrive(hardwareMap, beginPose);
         OuttakeSlide outtakeSlide = new OuttakeSlide(hardwareMap);
         HangClaw hangClaw = new HangClaw(hardwareMap);
@@ -44,8 +44,8 @@ public final class HangingAuto extends LinearOpMode {
                         outtakeSlide.hang(),
                         hangClaw.openClaw(),
                         // go back a little bit
-                        drive.actionBuilder(new Pose2d(10, -30.5, Math.toRadians(-90)))
-                                .strafeTo(new Vector2d(10,-33))
+                        drive.actionBuilder(new Pose2d(11, -30.5, Math.toRadians(-90)))
+                                .strafeTo(new Vector2d(11,-33))
                                 .build(),
                         new ParallelAction(
                                 // Close the slide
@@ -53,59 +53,66 @@ public final class HangingAuto extends LinearOpMode {
                                         // close the slide
                                         outtakeSlide.spinDown(),
                                         outtakeSlide.powerDown()),
-                                drive.actionBuilder(new Pose2d(10, -33, Math.toRadians(-90)))
+                                drive.actionBuilder(new Pose2d(11, -33, Math.toRadians(-90)))
                                  //Drive to First Block
-                                        .splineToLinearHeading(new Pose2d(31, -16, pi/2), pi/2)
+                                        .splineToLinearHeading(new Pose2d(32, -15, pi/2), pi/2)
                                 .strafeTo(new Vector2d(42, -12))
 //                                // Push Block 1
-                                .   strafeTo(new Vector2d(45, -51)) // 54.5
+                                .   strafeTo(new Vector2d(45, -50)) // 54.5
 //                                // Go back, Spline Turn, and go to block 2
-                                    .strafeTo(new Vector2d(40, -12))
+//                                        .lineToY(-12)
+                                    .strafeTo(new Vector2d(47, -12))
                                     .strafeTo(new Vector2d(52, -12))
 //                                // Push Block 2
-                                    .strafeTo(new Vector2d(50, -51)) // 54.5
+                                    .strafeTo(new Vector2d(50, -50)) // 54.5
 //                                // Go back, and go pick up Block 1
-                                    .strafeTo(new Vector2d(34, -48))
-                                    .strafeTo(new Vector2d(36, -62.5), new TranslationalVelConstraint(30))
+                                    .strafeTo(new Vector2d(35, -52))
+                                    .strafeTo(new Vector2d(35, -62), new TranslationalVelConstraint(30))
                                 .build()
                         ),
                         hangClaw.closeClaw(),
 //                        new SleepAction(0.2),
 //                        new SleepAction(1),
                         // go to submersible to hang specimen 2
-                        outtakeSlide.spinUp(),
-                                drive.actionBuilder(new Pose2d(36,-62.5,Math.toRadians(-90)))
-                                        .strafeTo(new Vector2d(36,-58))
-                                        .splineToLinearHeading(new Pose2d(7, -29, -pi/2), pi/2)
-//                                        .strafeTo(new Vector2d(6, -29), new TranslationalVelConstraint(40))
-                                        .build(),
                         new SleepAction(0.3),
+                        new ParallelAction(
+                            outtakeSlide.spinUp(),
+                                drive.actionBuilder(new Pose2d(35,-62,Math.toRadians(-90)))
+                                        .strafeTo(new Vector2d(35,-55))
+                                        .splineToLinearHeading(new Pose2d(9, -29, -pi/2), pi/2)
+//                                        .strafeTo(new Vector2d(6, -29), new TranslationalVelConstraint(40))
+                                        .build()
+                        ),
+//                        new SleepAction(0.3),
                         // hang speciment 2
                         outtakeSlide.hang(),
                         hangClaw.openClaw(),
                         // go back to pick up specimen 3
                         new ParallelAction(
                                 outtakeSlide.spinDown(),
-                                drive.actionBuilder(new Pose2d(7,-29,Math.toRadians(-90)))
+                                drive.actionBuilder(new Pose2d(9,-29,Math.toRadians(-90)))
 //                                        .splineToLinearHeading(new Pose2d(33, -61, pi/2), 180)
 //                                        .waitSeconds(.5)
 //                                        .build()
 
                                         // temp new code
-                                        .splineToLinearHeading(new Pose2d(33, -57, pi/2), 180)
-                                        .strafeTo(new Vector2d(36,-62), new TranslationalVelConstraint(30))
+                                        .splineToLinearHeading(new Pose2d(35, -57, pi/2), 180)
+                                        .strafeTo(new Vector2d(35,-62), new TranslationalVelConstraint(30))
                                         .build()
                         ),
 //                        new SleepAction(0.5),
                         //pick up specimen 3
                         hangClaw.closeClaw(),
-                        outtakeSlide.spinUp(),
-                        // go to submersible to hang specimen 3
-                        drive.actionBuilder(new Pose2d(36,-62,Math.toRadians(-90)))
-                                .strafeTo(new Vector2d(34,-58))
-                                .splineToLinearHeading(new Pose2d(2, -28, -pi/2), pi/2)
-                                .build(),
                         new SleepAction(0.3),
+                        new ParallelAction(
+                            outtakeSlide.spinUp(),
+                        // go to submersible to hang specimen 3
+                        drive.actionBuilder(new Pose2d(35,-62,Math.toRadians(-90)))
+                                .strafeTo(new Vector2d(35,-55))
+                                .splineToLinearHeading(new Pose2d(10, -29, -pi/2), pi/2)
+                                .build()
+                        ),
+//                        new SleepAction(0.3),
                         // hang specimen 3
                         outtakeSlide.hang(),
                         hangClaw.openClaw(),
@@ -113,11 +120,25 @@ public final class HangingAuto extends LinearOpMode {
                         // go for parking
                         new ParallelAction(
                                 outtakeSlide.spinDown(),
-                                drive.actionBuilder(new Pose2d(2,-28,Math.toRadians(-90)))
-                                        .splineToLinearHeading(new Pose2d(36, -59, pi/2), 180)
+                                drive.actionBuilder(new Pose2d(10,-28,Math.toRadians(-90)))
+                                        .splineToLinearHeading(new Pose2d(34.5, -57, pi/2), 180)
+                                        .strafeTo(new Vector2d(35,-62), new TranslationalVelConstraint(30))
                                         .build()
                         ),
-                        outtakeSlide.powerDown()
+                        hangClaw.closeClaw(),
+                        new SleepAction(0.3),
+                        new ParallelAction(
+                                outtakeSlide.spinUp(),
+                                // go to submersible to hang specimen 3
+                                drive.actionBuilder(new Pose2d(35,-62,Math.toRadians(-90)))
+                                        .strafeTo(new Vector2d(35,-55))
+                                        .splineToLinearHeading(new Pose2d(11, -29, -pi/2), pi/2)
+                                        .build()
+                        ),
+//                        new SleepAction(0.3),
+                        // hang specimen 3
+                        outtakeSlide.hang()
+//                        outtakeSlide.powerDown()
                 )
         );
     }
