@@ -14,15 +14,19 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class OuttakeSlide {
-    private final DcMotorEx motor;
+    private final DcMotorEx leftMotor, rightMotor;
     private HangClaw hangClaw;
 
     public OuttakeSlide(HardwareMap hardwareMap) {
 
-        motor = hardwareMap.get(DcMotorEx.class, "slideL");
-        motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        motor.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftMotor = hardwareMap.get(DcMotorEx.class, "slideL");
+        rightMotor = hardwareMap.get(DcMotorEx.class, "slideR");
+        leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         hangClaw = new HangClaw(hardwareMap);
     }
 
@@ -32,86 +36,85 @@ public class OuttakeSlide {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
             if (!initialized) {
-                motor.setTargetPosition(1450);
-                motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                motor.setPower(0.8);
+                leftMotor.setTargetPosition(1400);
+                rightMotor.setTargetPosition(1400);
+                leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                leftMotor.setPower(0.9);
+                rightMotor.setPower(0.9);
                 initialized = true;
             }
 
-            double vel = motor.getPower();
+            double vel = leftMotor.getPower();
             packet.put("Current power in Spin up", vel);
-            return motor.isBusy();
+            return leftMotor.isBusy();
         }
     }
 
     public class Hang implements Action {
-        private boolean initialized = false;
 
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-//            if (!initialized) {
-                motor.setTargetPosition(900);
-                motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                motor.setPower(0.8);
-//                initialized = true;
-//            }
+            leftMotor.setTargetPosition(800);
+            rightMotor.setTargetPosition(800);
+            leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            leftMotor.setPower(0.9);
+            rightMotor.setPower(0.9);
 
-            double vel = motor.getVelocity();
+            double vel = leftMotor.getVelocity();
             packet.put("Current Velocity in Hang", vel);
-            return motor.isBusy();
+            return leftMotor.isBusy();
         }
     }
 
     public class drop implements Action {
-//        private boolean initialized = false;
 
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-//            if (!initialized) {
-            motor.setTargetPosition(2120);
-            motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            motor.setPower(0.8);
-//                initialized = true;
-//            }
+            leftMotor.setTargetPosition(2120);
+            rightMotor.setTargetPosition(2120);
+            leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            leftMotor.setPower(0.9);
+            rightMotor.setPower(0.9);
 
-            double vel = motor.getVelocity();
+            double vel = leftMotor.getVelocity();
             packet.put("Current Velocity in Hang", vel);
-            return motor.isBusy();
+            return leftMotor.isBusy();
         }
     }
 
     public class SpinDown implements Action {
-        private boolean initialized = true;
 
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
+            leftMotor.setTargetPosition(0);
+            rightMotor.setTargetPosition(0);
+            leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            leftMotor.setPower(0.9);
+            rightMotor.setPower(0.9);
 
-            motor.setTargetPosition(0);
-            motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            motor.setPower(0.8);
-
-//            if (initialized && motor.isBusy() == FALSE) {
-//                motor.setPower(0);
-//                initialized = false;
-//            }
-
-            double power = motor.getPower();
+            double power = leftMotor.getPower();
             packet.put("Curent Power in Spin Down", power);
-            return  motor.isBusy();
+            return  leftMotor.isBusy();
         }
     }
 
     public class Park implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
+            leftMotor.setTargetPosition(500);
+            rightMotor.setTargetPosition(500);
+            leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            leftMotor.setPower(0.9);
+            rightMotor.setPower(0.9);
 
-            motor.setTargetPosition(500);
-            motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            motor.setPower(0.8);
-
-            double power = motor.getPower();
+            double power = leftMotor.getPower();
             packet.put("Curent Power in Park", power);
-            return  motor.isBusy();
+            return  leftMotor.isBusy();
         }
     }
 
@@ -119,7 +122,8 @@ public class OuttakeSlide {
 
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            motor.setPower(0);
+            leftMotor.setPower(0);
+            rightMotor.setPower(0);
             packet.put("Poert Down", "slide");
             return  FALSE;
         }
