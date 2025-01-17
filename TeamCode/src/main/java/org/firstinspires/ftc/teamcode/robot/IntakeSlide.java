@@ -68,9 +68,9 @@ public class IntakeSlide {
     public class ExpandSlow implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            left.setPosition(left.getPosition()-0.05);
-            right.setPosition(right.getPosition()-0.05);
-            packet.put("InArm Expand Slow", left.getPosition()-0.05);
+            left.setPosition(left.getPosition()-0.1);
+            right.setPosition(right.getPosition()-0.1);
+            packet.put("InArm Expand Slow", left.getPosition()-0.1);
             return false;
         }
     }
@@ -81,9 +81,9 @@ public class IntakeSlide {
     public class CloseSlow implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            left.setPosition(left.getPosition()+0.05);
-            right.setPosition(right.getPosition()+0.05);
-            packet.put("InArm Slow Close", left.getPosition()+0.05);
+            left.setPosition(left.getPosition()+0.1);
+            right.setPosition(right.getPosition()+0.1);
+            packet.put("InArm Slow Close", left.getPosition()+0.1);
             return false;
         }
     }
