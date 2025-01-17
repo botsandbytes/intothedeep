@@ -36,8 +36,8 @@ public class OuttakeSlide {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
             if (!initialized) {
-                leftMotor.setTargetPosition(1400);
-                rightMotor.setTargetPosition(1400);
+                leftMotor.setTargetPosition(1290);
+                rightMotor.setTargetPosition(1290);
                 leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 leftMotor.setPower(0.9);
