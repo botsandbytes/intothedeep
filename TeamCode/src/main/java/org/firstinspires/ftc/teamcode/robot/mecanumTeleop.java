@@ -41,11 +41,11 @@ public class mecanumTeleop {
             double rx = gamepad1.right_stick_x;
 
             // Calculate motor powers
-            double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
-            double frontLeftPower = (y + x + rx) / denominator;
-            double backLeftPower = (y - x + rx) / denominator;
-            double frontRightPower = (y - x - rx) / denominator;
-            double backRightPower = (y + x - rx) / denominator;
+            double denominator = Math.max(Math.pow(Math.abs(y) + Math.abs(x) + Math.abs(rx), 3), 1);
+            double frontLeftPower = Math.pow(y + x + rx, 3) / denominator;
+            double backLeftPower = Math.pow(y - x + rx, 3) / denominator;
+            double frontRightPower = Math.pow(y - x - rx, 3) / denominator;
+            double backRightPower = Math.pow(y + x - rx,3) / denominator;
 
             // Set motor powers
             frontLeftMotor.setPower(frontLeftPower);
