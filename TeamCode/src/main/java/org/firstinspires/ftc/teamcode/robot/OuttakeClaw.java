@@ -32,9 +32,9 @@ public class OuttakeClaw {
     public class OpenClaw implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            claw.setPosition(0.85);
+            claw.setPosition(0.8);
             packet.put("Out Claw Open", claw.getPosition());
-            return claw.getPosition() != 0.85;
+            return claw.getPosition() != 0.8;
         }
     }
     public Action openClaw() {
@@ -44,9 +44,9 @@ public class OuttakeClaw {
     public class ArmPick implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            arm.setPosition(.98);
+            arm.setPosition(.9);
             packet.put("Out Arm Pick", arm.getPosition());
-            return arm.getPosition()!=.98;
+            return arm.getPosition()!=.9;
         }
     }
     public Action armPick() {

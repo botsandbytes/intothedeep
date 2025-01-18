@@ -73,7 +73,7 @@ public final class HangingAuto extends LinearOpMode {
 //                        new SleepAction(0.2),
 //                        new SleepAction(1),
                         // go to submersible to hang specimen 2
-                        new SleepAction(0.3),
+                        new SleepAction(0.2),
                         new ParallelAction(
                             outtakeSlide.spinUp(),
                                 drive.actionBuilder(new Pose2d(35,-60,Math.toRadians(-90)))
@@ -97,7 +97,7 @@ public final class HangingAuto extends LinearOpMode {
 //                        new SleepAction(0.5),
                         //pick up specimen 3
                         hangClaw.closeClaw(),
-                        new SleepAction(0.3),
+                        new SleepAction(0.2),
                         new ParallelAction(
                             outtakeSlide.spinUp(),
                             // go to submersible to hang specimen 3
@@ -120,7 +120,7 @@ public final class HangingAuto extends LinearOpMode {
                                         .build()
                         ),
                         hangClaw.closeClaw(),
-                        new SleepAction(0.3),
+                        new SleepAction(0.2),
                         new ParallelAction(
                                 outtakeSlide.spinUp(),
                                 // go to submersible to hang specimen 4

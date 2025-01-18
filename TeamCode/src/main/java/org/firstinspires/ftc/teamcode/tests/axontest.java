@@ -32,4 +32,8 @@ public class axontest extends LinearOpMode {
         while (opModeIsActive()) {
             leftServo.setPosition(position);
             rightServo.setPosition(position);
+
+            telemetry.addLine("current position" +  leftServo.getPosition());
+            telemetry.addLine("current position" +  rightServo.getPosition());
+            telemetry.update();
         }}}

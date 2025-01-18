@@ -136,6 +136,21 @@ public final class TeleOp extends LinearOpMode {
                 );
             }
 
+            // intake claw rotate control
+
+            if (gamepad1.dpad_up) {
+                intake.rotateMid().run(packet);
+            }
+//            if (gamepad1.dpad_down) {
+//                inSlide.closeSlow().run(packet);
+//            }
+            if (gamepad1.dpad_right) {
+                intake.rotateRight().run(packet);
+            }
+            if (gamepad1.dpad_left) {
+                intake.rotateLeft().run(packet);
+            }
+
 
 
             // GAMEPAD 2 Controls
@@ -180,17 +195,21 @@ public final class TeleOp extends LinearOpMode {
                 Actions.runBlocking(
                     new SequentialAction(
                             new ParallelAction(
+                                    intake.rotateMid(),
                                 outtake.armPick(),
                                 outtake.openClaw(),
                                 intake.raisearm(),
                                 inSlide.closeSlide()
                             ),
-                        new SleepAction(1),
+                        new SleepAction(1.5),
                         outtake.closeClaw(),
+                            new SleepAction(1),
+                            new ParallelAction(
                         intake.openClaw(),
                             new SleepAction(0.2),
-                        outtake.armDrop(),
-                        outSlide.drop()
+                            outtake.armDrop(),
+                            outSlide.drop()
+                            )
                     )
                 );
             }

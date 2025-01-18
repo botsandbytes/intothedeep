@@ -68,9 +68,17 @@ public class IntakeSlide {
     public class ExpandSlow implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            left.setPosition(left.getPosition()-0.1);
-            right.setPosition(right.getPosition()-0.1);
-            packet.put("InArm Expand Slow", left.getPosition()-0.1);
+            if (left.getPosition() > 0.6) {
+                left.setPosition(0.6);
+                right.setPosition(0.6);
+            } else if (left.getPosition() < 0.4) {
+                left.setPosition(0.34);
+                right.setPosition(0.34);
+            } else {
+                    left.setPosition(left.getPosition() - 0.05);
+                    right.setPosition(right.getPosition() - 0.05);
+                    packet.put("InArm Expand Slow", left.getPosition() - 0.5);
+            }
             return false;
         }
     }
@@ -81,9 +89,14 @@ public class IntakeSlide {
     public class CloseSlow implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            left.setPosition(left.getPosition()+0.1);
-            right.setPosition(right.getPosition()+0.1);
-            packet.put("InArm Slow Close", left.getPosition()+0.1);
+            if (left.getPosition() > 0.8) {
+                left.setPosition(1);
+                right.setPosition(1);
+            } else {
+                left.setPosition(left.getPosition() + 0.05);
+                right.setPosition(right.getPosition() + 0.05);
+                packet.put("InArm Slow Close", left.getPosition() + 0.05);
+            }
             return false;
         }
     }
