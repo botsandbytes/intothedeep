@@ -49,15 +49,15 @@ public final class TeleOp extends LinearOpMode {
         HangClaw hangClaw = new HangClaw(hardwareMap);
         IntakeSlide inSlide = new IntakeSlide(hardwareMap);
         Intake intake = new Intake(hardwareMap);
-        Pose2d beginPose = new Pose2d(33, -59, pi/2);
+        Pose2d beginPose = new Pose2d(6, -33, -pi/2);
         PinpointDrive drive = new PinpointDrive(hardwareMap, beginPose);
 
+        Pose2d specimentPickUpPose = new Pose2d(32, -55, pi/2);
 
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-
             // GAMEPAD 1 Controls
-
+            drive.updatePoseEstimate();
             // Intake Claw Controls
             if (gamepad1.a) {
                 intake.lowerarm().run(packet);
@@ -73,42 +73,33 @@ public final class TeleOp extends LinearOpMode {
                 intake.armMid().run(packet);
             }
 
-            // ascend up
-            if (gamepad1.left_trigger > 0) {
-                Actions.runBlocking(
-                        outSlide.ascendUp()
-                );
-            }
 
-            // ascend down
-
-            if (gamepad1.right_trigger > 0) {
-                Actions.runBlocking(
-                        outSlide.ascendDown()
-                );
-            }
 
 
             //pick up the element and drive and hang element
             if (gamepad1.right_bumper) {
                 hangCount++;
+//                drive.updatePoseEstimate();
                 Actions.runBlocking(
                         new SequentialAction(
-                                drive.actionBuilder(new Pose2d(33, -59, Math.toRadians(90)))
-                                    .strafeTo(new Vector2d(32,-62.5), new TranslationalVelConstraint(50))
+                                drive.actionBuilder(specimentPickUpPose)
+                                    .strafeTo(new Vector2d(32,-60), new TranslationalVelConstraint(30))
                                             .build(),
 
                             //pick up block
                             hangClaw.closeClaw(),
+                                new SleepAction(0.3),
+                            new ParallelAction(
                             outSlide.spinUp(),
                             // go to submersible to hang block
-                            drive.actionBuilder(new Pose2d(32, -62.5, Math.toRadians(-90)))
-                                .strafeTo(new Vector2d(34, -60))
-                                .splineToLinearHeading(new Pose2d(4-(1.5*hangCount), -25, -pi / 2), pi / 2)
-                                .build(),
-                            new SleepAction(0.2),
-                            // hang block 2
-                            outSlide.hang()
+                            drive.actionBuilder(new Pose2d(32, -60, Math.toRadians(-90)))
+                                .strafeTo(new Vector2d(32, -55))
+                                .splineToLinearHeading(new Pose2d(4-(1.5*hangCount), -34, -pi / 2), pi / 2)
+                                .build()
+                            )
+//                            new SleepAction(0.2),
+//                            // hang block 2
+//                            outSlide.hang()
 //                            hangClaw.openClaw()
                         )
                 );
@@ -121,18 +112,37 @@ public final class TeleOp extends LinearOpMode {
                                 // go back to pick up block 2
                                 new ParallelAction(
                                         outSlide.spinDown(),
-                                        drive.actionBuilder(new Pose2d(4,-27,Math.toRadians(-90)))
-                                                .splineToLinearHeading(new Pose2d(30, -57, pi/2), 180)
-                                                .strafeTo(new Vector2d(33,-62.5), new TranslationalVelConstraint(50))
+                                        drive.actionBuilder(new Pose2d(4-(1.5*hangCount),-34,Math.toRadians(-90)))
+                                                .splineToLinearHeading(new Pose2d(33, -55, pi/2), 180)
+                                                .strafeTo(new Vector2d(33,-55), new TranslationalVelConstraint(50))
                                                 .build()
-                                )
+                                ),
+                                outSlide.powerDown()
                         )
                 );
             }
 
 
+            if (gamepad1.dpad_up) {
+                intake.raisearm().run(packet);
+            }
+            if (gamepad1.dpad_right) {
+                outSlide.spinUp().run(packet);;
+            }
 
-
+            if (gamepad1.left_trigger > 0) {
+                Actions.runBlocking(
+                        new SequentialAction(
+                            drive.actionBuilder(new Pose2d(6, -33, Math.toRadians(-90)))
+                            //Drive to First Block
+                                .splineToLinearHeading(new Pose2d(30, -15, pi/2), pi/2)
+                                .strafeTo(new Vector2d(55, -12))
+//                                // Push Block 1
+//                          .   strafeTo(new Vector2d(45, -50)) // 54.5
+                        .build()
+                )
+                );
+            }
 
             // GAMEPAD 2 Controls
 
@@ -160,10 +170,10 @@ public final class TeleOp extends LinearOpMode {
             if (gamepad2.right_bumper) {
                 Actions.runBlocking(
                         new SequentialAction(
-                            outSlide.hang(),
-                            hangClaw.openClaw(),
-                            outSlide.spinDown(),
-                            outSlide.powerDown()
+                                outSlide.hang()
+//                            hangClaw.openClaw(),
+//                            outSlide.spinDown(),
+//                            outSlide.powerDown()
                         )
                 );
             }
@@ -231,6 +241,41 @@ public final class TeleOp extends LinearOpMode {
             if (gamepad2.dpad_left) {
                 inSlide.closeSlide().run(packet);
             }
+
+            // ascend up
+            if (gamepad2.left_stick_y > 0) {
+                Actions.runBlocking(
+                        outSlide.ascendUp()
+                );
+            }
+
+            // ascend down
+
+            if (gamepad2.left_stick_y < 0) {
+                Actions.runBlocking(
+                        outSlide.ascendDown()
+                );
+            }
+
+
+            // ascend up
+            if (gamepad2.right_stick_y < 0) {
+                Actions.runBlocking(
+                        outSlide.drop()
+                );
+            }
+
+            // ascend down
+
+            if (gamepad2.right_stick_y > 0) {
+                Actions.runBlocking(
+                        new SequentialAction(
+                            outSlide.negativeSpinDown()
+//                            outSlide.powerDown()
+                        )
+                );
+            }
+
 
             return true;
         }

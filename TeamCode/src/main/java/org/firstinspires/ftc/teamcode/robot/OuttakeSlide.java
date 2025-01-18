@@ -102,6 +102,28 @@ public class OuttakeSlide {
         }
     }
 
+    public class NegativeSpinDown implements Action {
+
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            leftMotor.setTargetPosition(-1000);
+            rightMotor.setTargetPosition(-1000);
+            leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            leftMotor.setPower(0.9);
+            rightMotor.setPower(0.9);
+            try {
+                wait(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+//            new SleepAction(1);
+            double power = leftMotor.getPower();
+            packet.put("Curent Power in Spin Down", power);
+            return  false;
+        }
+    }
+
     public class AscendDown implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
@@ -140,6 +162,8 @@ public class OuttakeSlide {
         public boolean run(@NonNull TelemetryPacket packet) {
             leftMotor.setPower(0);
             rightMotor.setPower(0);
+            leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             packet.put("Poert Down", "slide");
             return  FALSE;
         }
@@ -157,6 +181,9 @@ public class OuttakeSlide {
         return new SpinDown();
     }
 
+    public Action negativeSpinDown() {
+        return new NegativeSpinDown();
+    }
     public Action hang() {
         return new Hang();
     }
