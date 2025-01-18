@@ -38,11 +38,11 @@ public class MecanumTeleOp extends LinearOpMode {
             // Denominator is the largest motor power (absolute value) or 1
             // This ensures all the powers maintain the same ratio,
             // but only if at least one is out of the range [-1, 1]
-            double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
-            double frontLeftPower = (y + x + rx) / denominator;
-            double backLeftPower = (y - x + rx) / denominator;
-            double frontRightPower = (y - x - rx) / denominator;
-            double backRightPower = (y + x - rx) / denominator;
+            double denominator = Math.max(Math.pow(Math.abs(y) + Math.abs(x) + Math.abs(rx), 3), 1);
+            double frontLeftPower = Math.pow(y + x + rx, 3) / denominator;
+            double backLeftPower = Math.pow(y - x + rx, 3) / denominator;
+            double frontRightPower = Math.pow(y - x - rx, 3) / denominator;
+            double backRightPower = Math.pow(y + x - rx,3) / denominator;
 
             leftFront.setPower(frontLeftPower);
             leftBack.setPower(backLeftPower);

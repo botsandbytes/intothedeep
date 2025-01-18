@@ -60,7 +60,7 @@ public final class HangingAuto extends LinearOpMode {
                                 .   strafeTo(new Vector2d(45, -50)) // 54.5
 //                                // Go back, Spline Turn, and go to block 2
 //                                        .lineToY(-12)
-                                    .strafeTo(new Vector2d(45, -12))
+                                    .strafeTo(new Vector2d(40, -12))
                                     .strafeTo(new Vector2d(52, -12))
 //                                // Push Block 2
                                     .strafeTo(new Vector2d(50, -50)) // 54.5

@@ -1,6 +1,5 @@
 package com.example.meepmeeptesting;
 
-import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TranslationalVelConstraint;
@@ -27,25 +26,25 @@ public class MeepMeepTesting {
         myBot.runAction(
                 new SequentialAction(
                         drive.actionBuilder(beginPos)
-                                .splineToConstantHeading(new Vector2d(11,-32.5), -pi/2)
+                                .splineToConstantHeading(new Vector2d(11,-32.5), -pi/2, new TranslationalVelConstraint(30))
                                 .build(),
                 drive.actionBuilder(new Pose2d(11, -32.5, Math.toRadians(-90)))
                         .splineToConstantHeading(new Vector2d(11,-33),0 )
-                                //Drive to First Block
-                                .splineToSplineHeading(new Pose2d(32, -15, pi/2), pi/2)
-                                .splineToConstantHeading(new Vector2d(42, -12), -pi/2)
+                        //Drive to First Block
+                        .splineToSplineHeading(new Pose2d(32, -15, pi/2), pi/2)
+                        .splineToConstantHeading(new Vector2d(42, -12), -pi/2)
 //                                // Push Block 1
-                                .splineToConstantHeading(new Vector2d(45, -50), pi/2) // 54.5
+                        .splineToConstantHeading(new Vector2d(45, -50), pi/2) // 54.5
 //                                // Go back, Spline Turn, and go to block 2
 //                                        .lineToY(-12)
-                                .splineToConstantHeading(new Vector2d(45, -12), pi/2)
-                                .splineToConstantHeading(new Vector2d(52, -12), -pi/2)
+                        .splineToConstantHeading(new Vector2d(45, -12), pi/2)
+                        .splineToConstantHeading(new Vector2d(52, -12), -pi/2)
 //                                // Push Block 2
-                                .splineToConstantHeading(new Vector2d(50, -50), pi/2) // 54.5
+                        .splineToConstantHeading(new Vector2d(50, -50), pi/2) // 54.5
 //                                // Go back, and go pick up Block 1
-                                .splineToConstantHeading(new Vector2d(35, -52), -pi/2)
-                                .splineToConstantHeading(new Vector2d(35, -60), -pi/2, new TranslationalVelConstraint(30))
-                                .build()
+                        .splineToConstantHeading(new Vector2d(35, -52), -pi/2)
+                        .splineToConstantHeading(new Vector2d(35, -60), -pi/2, new TranslationalVelConstraint(30))
+                        .build()
                 )
         );
 
