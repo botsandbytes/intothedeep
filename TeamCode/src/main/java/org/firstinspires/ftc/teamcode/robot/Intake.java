@@ -101,9 +101,9 @@ public class Intake {
     public class RotateLeft implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            rotate.setPosition(0.3);
+            rotate.setPosition(0.2);
             packet.put("Rotate left", rotate.getPosition());
-            return rotate.getPosition()!=0.3;
+            return rotate.getPosition()!=0.2;
         }
     }
     public Action rotateLeft() {
@@ -113,9 +113,9 @@ public class Intake {
     public class RotateRight implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            rotate.setPosition(0.7);
+            rotate.setPosition(0.9);
             packet.put("Rotate Right", rotate.getPosition());
-            return rotate.getPosition()!=0.7;
+            return rotate.getPosition()!=0.9;
         }
     }
     public Action rotateRight() {
@@ -125,9 +125,9 @@ public class Intake {
     public class RotateMid implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            rotate.setPosition(0.5);
+            rotate.setPosition(0.55);
             packet.put("Rotate mid", rotate.getPosition());
-            return rotate.getPosition()!=0.5;
+            return rotate.getPosition()!=0.55;
         }
     }
     public Action rotateMid() {
