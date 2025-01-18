@@ -64,7 +64,7 @@ public class Intake {
     public class LowerArm implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            arm.setPosition(1);
+            arm.setPosition(.7);
             packet.put("Lowered arm", arm.getPosition());
             return false;
         }
@@ -76,9 +76,9 @@ public class Intake {
     public class RaiseArm implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            arm.setPosition(0.3);
+            arm.setPosition(0);
             packet.put("Raised arm", arm.getPosition());
-            return arm.getPosition()!=0.3;
+            return arm.getPosition()!=0;
         }
     }
     public Action raisearm() {

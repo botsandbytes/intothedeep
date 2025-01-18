@@ -73,24 +73,18 @@ public final class TeleOp extends LinearOpMode {
                 intake.armMid().run(packet);
             }
 
+            // ascend up
             if (gamepad1.left_trigger > 0) {
                 Actions.runBlocking(
-                        new SequentialAction(
-                                intake.closeClaw(),
-                                new SleepAction(0.5),
-                                intake.armMid()
-                        )
+                        outSlide.ascendUp()
                 );
             }
 
-            // parking
+            // ascend down
 
             if (gamepad1.right_trigger > 0) {
                 Actions.runBlocking(
-                        new SequentialAction(
-                                outtake.armPark(),
-                                outSlide.park()
-                        )
+                        outSlide.ascendDown()
                 );
             }
 
@@ -136,20 +130,7 @@ public final class TeleOp extends LinearOpMode {
                 );
             }
 
-            // intake claw rotate control
 
-            if (gamepad1.dpad_up) {
-                intake.rotateMid().run(packet);
-            }
-//            if (gamepad1.dpad_down) {
-//                inSlide.closeSlow().run(packet);
-//            }
-            if (gamepad1.dpad_right) {
-                intake.rotateRight().run(packet);
-            }
-            if (gamepad1.dpad_left) {
-                intake.rotateLeft().run(packet);
-            }
 
 
 
@@ -161,9 +142,19 @@ public final class TeleOp extends LinearOpMode {
             if (gamepad2.a) {
                 hangClaw.openClaw().run(packet);
             }
-            if (gamepad2.x) {
 
+            // intake claw rotate control
+
+            if (gamepad2.y) {
+                intake.rotateMid().run(packet);
             }
+            if (gamepad2.b) {
+                intake.rotateRight().run(packet);
+            }
+            if (gamepad2.x) {
+                intake.rotateLeft().run(packet);
+            }
+
 
             //Hang speciment and spin down
             if (gamepad2.right_bumper) {

@@ -102,11 +102,27 @@ public class OuttakeSlide {
         }
     }
 
-    public class Park implements Action {
+    public class AscendDown implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            leftMotor.setTargetPosition(500);
-            rightMotor.setTargetPosition(500);
+            leftMotor.setTargetPosition(1300);
+            rightMotor.setTargetPosition(1300);
+            leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            leftMotor.setPower(0.9);
+            rightMotor.setPower(0.9);
+
+            double power = leftMotor.getPower();
+            packet.put("Curent Power in Park", power);
+            return  leftMotor.isBusy();
+        }
+    }
+
+    public class AscendUp implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            leftMotor.setTargetPosition(1800);
+            rightMotor.setTargetPosition(1800);
             leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             leftMotor.setPower(0.9);
@@ -146,8 +162,12 @@ public class OuttakeSlide {
     }
 
 
-    public Action park() {
-        return new Park();
+    public Action ascendDown() {
+        return new AscendDown();
+    }
+
+    public Action ascendUp() {
+        return new AscendUp();
     }
 
     public Action drop() {
