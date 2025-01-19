@@ -63,10 +63,10 @@ public final class HangingAuto extends LinearOpMode {
                                     .strafeTo(new Vector2d(40, -12))
                                     .strafeTo(new Vector2d(52, -12))
 //                                // Push Block 2
-                                    .strafeTo(new Vector2d(50, -50)) // 54.5
+                                        .splineToConstantHeading(new Vector2d(50, -40), pi/2) // 54.5
 //                                // Go back, and go pick up Block 1
-                                    .strafeTo(new Vector2d(35, -52))
-                                    .strafeTo(new Vector2d(35, -60), new TranslationalVelConstraint(30))
+                                        .splineToConstantHeading(new Vector2d(32, -52), -pi/2)
+                                        .strafeTo(new Vector2d(35, -60), new TranslationalVelConstraint(30))
                                 .build()
                         ),
                         hangClaw.closeClaw(),

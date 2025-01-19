@@ -40,8 +40,8 @@ public class IntakeSlide {
         public boolean run(@NonNull TelemetryPacket packet) {
             packet.put("Int Slide start position Left ", left.getPosition());
             packet.put("Int Slide start position Right ", right.getPosition());
-            left.setPosition(0.34);
-            right.setPosition(0.34);
+            left.setPosition(0.45);
+            right.setPosition(0.45);
             packet.put("Int Slide Expanded Left ", left.getPosition());
             packet.put("Int Slide Expanded Right ", right.getPosition());
             return false;

@@ -99,7 +99,8 @@ public final class TeleOp extends LinearOpMode {
                             ),
                             new SleepAction(0.2),
                             // hang block 2
-                            outSlide.hang()
+                            outSlide.hang(),
+                            outSlide.powerDown()
 //                            hangClaw.openClaw()
                         )
                 );
@@ -277,6 +278,7 @@ public final class TeleOp extends LinearOpMode {
                         )
                 );
             }
+
 
 
             return true;
