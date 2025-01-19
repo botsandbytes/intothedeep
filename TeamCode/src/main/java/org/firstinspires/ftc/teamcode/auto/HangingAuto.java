@@ -30,9 +30,9 @@ public final class HangingAuto extends LinearOpMode {
         Actions.runBlocking(
                 new SequentialAction(
                         hangClaw.closeClaw(),
-                        inSlide.closeSlide(),
                         // go to submersible
                         new ParallelAction(
+                                inSlide.closeSlide(),
                                 outtakeSlide.spinUp(),
                                 drive.actionBuilder(beginPose)
                                         .lineToY(-32.5)

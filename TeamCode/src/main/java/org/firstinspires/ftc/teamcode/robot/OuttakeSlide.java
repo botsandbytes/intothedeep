@@ -72,8 +72,8 @@ public class OuttakeSlide {
 
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            leftMotor.setTargetPosition(2120);
-            rightMotor.setTargetPosition(2120);
+            leftMotor.setTargetPosition(2000);
+            rightMotor.setTargetPosition(2000);
             leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             leftMotor.setPower(0.9);
@@ -112,12 +112,12 @@ public class OuttakeSlide {
             rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             leftMotor.setPower(0.9);
             rightMotor.setPower(0.9);
-            try {
-                wait(1000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-//            new SleepAction(1);
+//            try {
+//                wait(1000);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+            new SleepAction(1);
             double power = leftMotor.getPower();
             packet.put("Curent Power in Spin Down", power);
             return  false;

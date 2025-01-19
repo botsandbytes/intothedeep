@@ -52,7 +52,7 @@ public final class TeleOp extends LinearOpMode {
         Pose2d beginPose = new Pose2d(6, -33, -pi/2);
         PinpointDrive drive = new PinpointDrive(hardwareMap, beginPose);
 
-        Pose2d specimentPickUpPose = new Pose2d(32, -55, pi/2);
+        Pose2d specimentPickUpPose = new Pose2d(33, -55, pi/2);
 
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
@@ -83,7 +83,7 @@ public final class TeleOp extends LinearOpMode {
                 Actions.runBlocking(
                         new SequentialAction(
                                 drive.actionBuilder(specimentPickUpPose)
-                                    .strafeTo(new Vector2d(32,-60), new TranslationalVelConstraint(30))
+                                    .strafeTo(new Vector2d(33,-60), new TranslationalVelConstraint(30))
                                             .build(),
 
                             //pick up block
@@ -92,14 +92,14 @@ public final class TeleOp extends LinearOpMode {
                             new ParallelAction(
                             outSlide.spinUp(),
                             // go to submersible to hang block
-                            drive.actionBuilder(new Pose2d(32, -60, Math.toRadians(-90)))
-                                .strafeTo(new Vector2d(32, -55))
-                                .splineToLinearHeading(new Pose2d(4-(1.5*hangCount), -34, -pi / 2), pi / 2)
+                            drive.actionBuilder(new Pose2d(33, -60, Math.toRadians(-90)))
+                                .strafeTo(new Vector2d(33, -55))
+                                .splineToLinearHeading(new Pose2d(4-(1.25*hangCount), -34, -pi / 2), pi / 2)
                                 .build()
-                            )
-//                            new SleepAction(0.2),
-//                            // hang block 2
-//                            outSlide.hang()
+                            ),
+                            new SleepAction(0.2),
+                            // hang block 2
+                            outSlide.hang()
 //                            hangClaw.openClaw()
                         )
                 );
@@ -114,7 +114,7 @@ public final class TeleOp extends LinearOpMode {
                                         outSlide.spinDown(),
                                         drive.actionBuilder(new Pose2d(4-(1.5*hangCount),-34,Math.toRadians(-90)))
                                                 .splineToLinearHeading(new Pose2d(33, -55, pi/2), 180)
-                                                .strafeTo(new Vector2d(33,-55), new TranslationalVelConstraint(50))
+//                                                .strafeTo(new Vector2d(33,-60), new TranslationalVelConstraint(50))
                                                 .build()
                                 ),
                                 outSlide.powerDown()
@@ -133,12 +133,13 @@ public final class TeleOp extends LinearOpMode {
             if (gamepad1.left_trigger > 0) {
                 Actions.runBlocking(
                         new SequentialAction(
+                                inSlide.closeSlide(),
                             drive.actionBuilder(new Pose2d(6, -33, Math.toRadians(-90)))
-                            //Drive to First Block
+                            //Drive to  Block
                                 .splineToLinearHeading(new Pose2d(30, -15, pi/2), pi/2)
-                                .strafeTo(new Vector2d(55, -12))
-//                                // Push Block 1
-//                          .   strafeTo(new Vector2d(45, -50)) // 54.5
+                                .strafeTo(new Vector2d(60, -12))
+//                                // Push Block
+                          .   strafeTo(new Vector2d(60, -50), new TranslationalVelConstraint(30)) // 54.5
                         .build()
                 )
                 );
@@ -243,7 +244,7 @@ public final class TeleOp extends LinearOpMode {
             }
 
             // ascend up
-            if (gamepad2.left_stick_y > 0) {
+            if (gamepad2.left_stick_y < 0) {
                 Actions.runBlocking(
                         outSlide.ascendUp()
                 );
@@ -251,26 +252,27 @@ public final class TeleOp extends LinearOpMode {
 
             // ascend down
 
-            if (gamepad2.left_stick_y < 0) {
+            if (gamepad2.left_stick_y > 0) {
                 Actions.runBlocking(
                         outSlide.ascendDown()
                 );
             }
 
 
-            // ascend up
+            // drop position
             if (gamepad2.right_stick_y < 0) {
                 Actions.runBlocking(
                         outSlide.drop()
                 );
             }
 
-            // ascend down
+            // spin down and reset
 
             if (gamepad2.right_stick_y > 0) {
                 Actions.runBlocking(
                         new SequentialAction(
-                            outSlide.negativeSpinDown()
+                            outSlide.negativeSpinDown(),
+                                new SleepAction(1.5)
 //                            outSlide.powerDown()
                         )
                 );
