@@ -94,7 +94,7 @@ public final class TeleOp extends LinearOpMode {
                             // go to submersible to hang block
                             drive.actionBuilder(new Pose2d(33, -60, Math.toRadians(-90)))
                                 .strafeTo(new Vector2d(33, -55))
-                                .splineToLinearHeading(new Pose2d(4-(1.25*hangCount), -34, -pi / 2), pi / 2)
+                                .splineToLinearHeading(new Pose2d(4-(1.25*hangCount), -33, -pi / 2), pi / 2)
                                 .build()
                             ),
                             new SleepAction(0.2),
@@ -113,7 +113,7 @@ public final class TeleOp extends LinearOpMode {
                                 // go back to pick up block 2
                                 new ParallelAction(
                                         outSlide.spinDown(),
-                                        drive.actionBuilder(new Pose2d(4-(1.5*hangCount),-34,Math.toRadians(-90)))
+                                        drive.actionBuilder(new Pose2d(4-(1.5*hangCount),-33,Math.toRadians(-90)))
                                                 .splineToLinearHeading(new Pose2d(33, -55, pi/2), 180)
 //                                                .strafeTo(new Vector2d(33,-60), new TranslationalVelConstraint(50))
                                                 .build()
@@ -186,6 +186,14 @@ public final class TeleOp extends LinearOpMode {
                         new SequentialAction(
                             hangClaw.closeClaw(),
                             outSlide.spinUp()
+                        )
+                );
+            }
+
+            if (gamepad1.dpad_left) {
+                Actions.runBlocking(
+                        new SequentialAction(
+                                hangClaw.closeClaw()
                         )
                 );
             }
@@ -277,6 +285,7 @@ public final class TeleOp extends LinearOpMode {
 //                            outSlide.powerDown()
                         )
                 );
+
             }
 
 
